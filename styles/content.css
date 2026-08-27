@@ -1,0 +1,64 @@
+html[data-wp-active='true'] :where(p, li, dd, dt, blockquote, article > div, [role='article']) {
+  font-size: var(--wp-text-scale, 100%) !important;
+  line-height: var(--wp-line-height, 1.55) !important;
+}
+
+html[data-wp-active='true'] :where(h1, h2, h3, h4, h5, h6, label, button, input:not([type='password']):not([autocomplete*='cc-']):not([name*='card' i]):not([id*='card' i]):not([name*='cvc' i]):not([id*='cvc' i]):not([name*='cvv' i]):not([id*='cvv' i]), textarea, select, td, th, [role='cell'], [role='columnheader'], [role='button']) {
+  font-size: var(--wp-ui-scale, 100%) !important;
+  line-height: max(1.25, var(--wp-line-height, 1.55)) !important;
+}
+
+html[data-wp-active='true'][data-wp-contrast='soft'],
+html[data-wp-active='true'][data-wp-contrast='soft'] body {
+  background-color: #fff9ed !important;
+  color: #182a35 !important;
+}
+
+html[data-wp-active='true'][data-wp-contrast='high'],
+html[data-wp-active='true'][data-wp-contrast='high'] body,
+html[data-wp-active='true'][data-wp-contrast='high'] :where(main, article, section, nav, header, footer, aside, div) {
+  background-color: #000 !important;
+  color: #fff !important;
+  border-color: #fff !important;
+}
+
+html[data-wp-active='true'][data-wp-contrast='high'] :where(a, button) { color: #8eeeff !important; }
+
+html[data-wp-active='true'][data-wp-contrast='night'],
+html[data-wp-active='true'][data-wp-contrast='night'] body,
+html[data-wp-active='true'][data-wp-contrast='night'] :where(main, article, section, nav, header, footer, aside) {
+  background-color: #101c25 !important;
+  color: #fff5e2 !important;
+  border-color: #b8c5c8 !important;
+}
+
+html[data-wp-active='true'][data-wp-contrast='night'] a { color: #73d0cc !important; }
+
+#workspace-profiles-cursor-halo {
+  all: initial !important;
+  position: fixed !important;
+  z-index: 2147483647 !important;
+  left: var(--wp-halo-x, -100px) !important;
+  top: var(--wp-halo-y, -100px) !important;
+  width: 36px !important;
+  height: 36px !important;
+  border: 3px solid #a06a19 !important;
+  border-radius: 50% !important;
+  box-shadow: 0 0 0 3px rgba(255, 249, 237, .9), 0 0 0 6px rgba(24, 42, 53, .72) !important;
+  transform: translate(-50%, -50%) !important;
+  pointer-events: none !important;
+  opacity: 0 !important;
+}
+
+#workspace-profiles-cursor-halo[data-visible='true'] { opacity: 1 !important; }
+
+.workspace-profiles-magnified {
+  transform: scale(var(--wp-focus-scale, 1.4)) !important;
+  box-shadow: 0 0 0 4px #f1c66b, 0 12px 48px rgba(0, 0, 0, .45) !important;
+  background-color: Canvas !important;
+  color: CanvasText !important;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .workspace-profiles-magnified { transition: transform 180ms ease-out !important; }
+}

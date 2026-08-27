@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Workspace Profiles</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to controls</a>
+    <header class="masthead">
+      <div class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></div>
+      <div>
+        <p class="eyebrow">Readable route</p>
+        <h1>Workspace Profiles</h1>
+      </div>
+      <span id="site-state" class="state-dot" title="Profile state" aria-label="Loading site state"></span>
+    </header>
+
+    <main id="main">
+      <section id="loading-state" class="state-panel" aria-live="polite">
+        <div class="loader" aria-hidden="true"></div>
+        <p>Finding this workspace…</p>
+      </section>
+
+      <section id="unsupported-state" class="state-panel" hidden>
+        <h2>This page stays untouched</h2>
+        <p>Browser settings and extension pages cannot be restyled. Open a regular work site to assign a profile.</p>
+      </section>
+
+      <section id="empty-state" class="state-panel" hidden>
+        <div class="route-empty" aria-hidden="true"><i></i><i></i><i></i></div>
+        <p class="station-label">No routes yet</p>
+        <h2>Make <span data-site-label>this site</span> readable</h2>
+        <p>Start with larger text and a cursor halo. You can tune every control before it is applied.</p>
+        <button id="create-first" class="button primary" type="button">Create my first profile</button>
+      </section>
+
+      <section id="editor" hidden>
+        <div class="site-banner">
+          <div>
+            <p class="eyebrow">Current station</p>
+            <strong data-site-label>this site</strong>
+          </div>
+          <label class="switch-row" for="site-enabled">
+            <span>Use on this site</span>
+            <input id="site-enabled" type="checkbox" />
+            <span class="switch" aria-hidden="true"></span>
+          </label>
+        </div>
+
+        <div class="profile-picker">
+          <label for="profile-select">Profile</label>
+          <div class="picker-row">
+            <select id="profile-select"></select>
+            <button id="new-profile" class="icon-button" type="button" aria-label="Create a new profile" title="Create a new profile">+</button>
+          </div>
+        </div>
+
+        <form id="profile-form">
+          <label for="profile-name">Profile name</label>
+          <input id="profile-name" name="name" required maxlength="48" autocomplete="off" />
+
+          <fieldset>
+            <legend>Reading</legend>
+            <div class="range-row">
+              <div class="range-heading"><label for="text-scale">Text size</label><output id="text-scale-value" for="text-scale">125%</output></div>
+              <input id="text-scale" type="range" min="100" max="180" step="5" value="125" />
+            </div>
+            <div class="range-row">
+              <div class="range-heading"><label for="line-spacing">Line spacing</label><output id="line-spacing-value" for="line-spacing">1.55×</output></div>
+              <input id="line-spacing" type="range" min="1.2" max="2" step="0.05" value="1.55" />
+            </div>
+            <label for="contrast">Contrast treatment</label>
+            <select id="contrast">
+              <option value="site">Keep site colors</option>
+              <option value="soft">Warm paper</option>
+              <option value="high">High contrast</option>
+              <option value="night">Night route</option>
+            </select>
+          </fieldset>
+
+          <fieldset>
+            <legend>Finding your place</legend>
+            <label class="check-row" for="cursor-halo">
+              <input id="cursor-halo" type="checkbox" />
+              <span><strong>Cursor halo</strong><small>A brass ring follows pointer and keyboard focus.</small></span>
+            </label>
+            <div class="range-row">
+              <div class="range-heading"><label for="focus-scale">Focus magnification</label><output id="focus-scale-value" for="focus-scale">140%</output></div>
+              <input id="focus-scale" type="range" min="110" max="180" step="5" value="140" />
+            </div>
+            <p class="shortcut"><kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>M</kbd> Hold to magnify the focused region. Payment and password fields are skipped.</p>
+          </fieldset>
+
+          <p id="form-error" class="error" role="alert" hidden></p>
+          <div class="actions">
+            <button class="button primary" type="submit">Save and apply</button>
+            <button id="delete-profile" class="button text-danger" type="button">Delete profile</button>
+          </div>
+        </form>
+
+        <details class="backup">
+          <summary>Move profiles to another device</summary>
+          <p>Profiles stay on this device. Export a backup, or import one you trust.</p>
+          <div class="backup-actions">
+            <button id="export-profiles" class="button secondary" type="button">Export JSON</button>
+            <label class="button secondary file-button">Import JSON<input id="import-profiles" type="file" accept="application/json,.json" /></label>
+          </div>
+        </details>
+      </section>
+    </main>
+
+    <footer>
+      <p id="status" aria-live="polite">Settings never leave this browser.</p>
+      <button id="undo-delete" class="undo" type="button" hidden>Undo delete</button>
+    </footer>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>
