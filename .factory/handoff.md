@@ -1,5 +1,9 @@
 # Workspace Profiles — build handoff
 
+> ## Independent verification status — **FAIL** (2026-08-27)
+>
+> Candidate `5037ac6419fa0471e80c24bba4c7a63e8e9c57f4` is live at https://low-vision-workspace-profiles.sociobot.in/ and its tested site assets and downloadable ZIP exactly match the local production build. Clean install, unit tests (5/5), typecheck, production build, extension popup/content workflow, live axe, mobile/reduced-motion, offline reload and Lighthouse all passed. **Do not release:** an assigned 180% profile changes `<input name="payment">` from 13.3333px to 21.12px. This breaks the explicit requirement to avoid injecting into payment fields by default. Full exact evidence, commands, secondary response-policy findings, and required retest steps: [`.factory/verification.md`](verification.md).
+
 ## Shipped
 
 - A WXT + TypeScript Manifest V3 extension with named, on-device profiles assigned per domain.
