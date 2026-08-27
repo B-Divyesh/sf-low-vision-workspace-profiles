@@ -1,0 +1,86 @@
+{
+  "assets/src/workspace-route-hero.json": {
+    "mtime": 1787874759.782496,
+    "seen": 1787874760.8749874,
+    "ast_hash": "97fdad879b5b499e1d8f1ec3dff23249",
+    "semantic_hash": "97fdad879b5b499e1d8f1ec3dff23249"
+  },
+  "assets/src/workspace-route-hero.png.json": {
+    "mtime": 1787874759.7944963,
+    "seen": 1787874760.8749914,
+    "ast_hash": "fda090ebccff8a846001f2d0c9a6bf27",
+    "semantic_hash": "fda090ebccff8a846001f2d0c9a6bf27"
+  },
+  "entrypoints/background.ts": {
+    "mtime": 1787874759.7944963,
+    "seen": 1787874760.874993,
+    "ast_hash": "ac39c60d7c360e2f0cc0971050c122b6",
+    "semantic_hash": "ac39c60d7c360e2f0cc0971050c122b6"
+  },
+  "entrypoints/content.ts": {
+    "mtime": 1787874759.7944963,
+    "seen": 1787874760.8749943,
+    "ast_hash": "0d4eee90eb23c8e3e2315ad5b6f474c6",
+    "semantic_hash": "0d4eee90eb23c8e3e2315ad5b6f474c6"
+  },
+  "entrypoints/popup/main.ts": {
+    "mtime": 1787874759.7944963,
+    "seen": 1787874760.8749952,
+    "ast_hash": "ea9f3c4c25a57ba7d7c23dd0ee6d501f",
+    "semantic_hash": "ea9f3c4c25a57ba7d7c23dd0ee6d501f"
+  },
+  "package.json": {
+    "mtime": 1787874759.7984965,
+    "seen": 1787874760.8749962,
+    "ast_hash": "1859c2523da80d371b3385db99ca4025",
+    "semantic_hash": "1859c2523da80d371b3385db99ca4025"
+  },
+  "scripts/build.mjs": {
+    "mtime": 1787874759.7984965,
+    "seen": 1787874760.8749976,
+    "ast_hash": "1ec2250321875a27c5724e48bdab48f6",
+    "semantic_hash": "1ec2250321875a27c5724e48bdab48f6"
+  },
+  "shared/profiles.ts": {
+    "mtime": 1787874759.7984965,
+    "seen": 1787874760.8749983,
+    "ast_hash": "908d185fb017e88db3ed56c994b86a8f",
+    "semantic_hash": "908d185fb017e88db3ed56c994b86a8f"
+  },
+  "site/main.ts": {
+    "mtime": 1787874759.7984965,
+    "seen": 1787874760.8749995,
+    "ast_hash": "ffd16f6bc5ee95e575531b6f3803c912",
+    "semantic_hash": "ffd16f6bc5ee95e575531b6f3803c912"
+  },
+  "site/public/sw.js": {
+    "mtime": 1787874759.7984965,
+    "seen": 1787874760.8750005,
+    "ast_hash": "3021c489203897a54c120c2215e38a02",
+    "semantic_hash": "3021c489203897a54c120c2215e38a02"
+  },
+  "site/vite.config.ts": {
+    "mtime": 1787874759.8024967,
+    "seen": 1787874760.8750014,
+    "ast_hash": "0fc97d6ad813b86b88ac1f2142717138",
+    "semantic_hash": "0fc97d6ad813b86b88ac1f2142717138"
+  },
+  "tests/profiles.test.ts": {
+    "mtime": 1787874759.8024967,
+    "seen": 1787874760.8750024,
+    "ast_hash": "a03e18aadc291adb5abae1b7a03266dd",
+    "semantic_hash": "a03e18aadc291adb5abae1b7a03266dd"
+  },
+  "tsconfig.json": {
+    "mtime": 1787874759.8024967,
+    "seen": 1787874760.8750033,
+    "ast_hash": "6e30c3319ee762b75d40089b844aef89",
+    "semantic_hash": "6e30c3319ee762b75d40089b844aef89"
+  },
+  "wxt.config.ts": {
+    "mtime": 1787874759.8024967,
+    "seen": 1787874760.875004,
+    "ast_hash": "380e6ddf41cca51a9344f9a2a2d373e0",
+    "semantic_hash": "380e6ddf41cca51a9344f9a2a2d373e0"
+  }
+}
