@@ -1,3 +1,23 @@
+# Workspace Profiles — review 4 handoff
+
+## Review 4 result
+
+Created `.factory/review-4.md`. The complete adversarial first-read review is **PASS** with zero blocking or minor findings. No product source was changed.
+
+## Review 4 verification
+
+- Cold live checks at 390×844 and 1440×900 confirmed the job, audience, primary demo action, outcome, and facts before scrolling.
+- The live demo showed active realistic sample data, its persistent isolated-demo banner, Reset demo, Start for real, and same-origin traffic.
+- A disposable clean clone at `/tmp/lvw-review4` passed `npm ci`, `npm test`, `npm run lint`, `npm run build`, and `npm run test:site`.
+- All 18 exact commands from `.factory/claims.json` passed individually, including packaged-extension tests.
+- Every finding in reviews 1–3 was checked against current code and the live site and confirmed fixed.
+
+## Known gaps
+
+None. Pre-existing `graphify-out/` edits remain untouched and are excluded from this review commit.
+
+---
+
 # Workspace Profiles — polish 3 handoff
 
 ## Delivered
