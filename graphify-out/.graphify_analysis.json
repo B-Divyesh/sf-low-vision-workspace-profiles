@@ -165,13 +165,13 @@
       "degree": 10
     },
     {
-      "id": "entrypoints_content_main",
-      "label": "main()",
+      "id": "entrypoints_popup_main_initialize",
+      "label": "initialize()",
       "degree": 7
     },
     {
-      "id": "entrypoints_popup_main_initialize",
-      "label": "initialize()",
+      "id": "entrypoints_content_main",
+      "label": "main()",
       "degree": 7
     },
     {
@@ -190,8 +190,13 @@
       "degree": 6
     },
     {
-      "id": "entrypoints_content_refreshprofile",
-      "label": "refreshProfile()",
+      "id": "entrypoints_popup_main_updatesitestate",
+      "label": "updateSiteState()",
+      "degree": 5
+    },
+    {
+      "id": "shared_profiles_sitelabel",
+      "label": "siteLabel()",
       "degree": 5
     },
     {
@@ -203,19 +208,14 @@
       "id": "entrypoints_content_magnifyfocused",
       "label": "magnifyFocused()",
       "degree": 5
-    },
-    {
-      "id": "entrypoints_popup_main_updatesitestate",
-      "label": "updateSiteState()",
-      "degree": 5
     }
   ],
   "surprises": [
     {
-      "source": "refreshProfile()",
+      "source": "initialize()",
       "target": "parseWorkspaceData()",
       "source_files": [
-        "entrypoints/content.ts",
+        "entrypoints/popup/main.ts",
         "shared/profiles.ts"
       ],
       "confidence": "EXTRACTED",
@@ -223,10 +223,10 @@
       "why": "connects across different repos/directories; bridges separate communities"
     },
     {
-      "source": "initialize()",
+      "source": "refreshProfile()",
       "target": "parseWorkspaceData()",
       "source_files": [
-        "entrypoints/popup/main.ts",
+        "entrypoints/content.ts",
         "shared/profiles.ts"
       ],
       "confidence": "EXTRACTED",
@@ -245,10 +245,10 @@
       "why": "connects across different repos/directories; peripheral node `readForm()` unexpectedly reaches hub `createProfile()`"
     },
     {
-      "source": "refreshProfile()",
-      "target": "assignedProfile()",
+      "source": "initialize()",
+      "target": "siteLabel()",
       "source_files": [
-        "entrypoints/content.ts",
+        "entrypoints/popup/main.ts",
         "shared/profiles.ts"
       ],
       "confidence": "EXTRACTED",
@@ -256,7 +256,7 @@
       "why": "connects across different repos/directories"
     },
     {
-      "source": "initialize()",
+      "source": "updateSiteState()",
       "target": "siteLabel()",
       "source_files": [
         "entrypoints/popup/main.ts",
