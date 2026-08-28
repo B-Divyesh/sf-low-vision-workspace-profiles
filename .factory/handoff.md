@@ -1,36 +1,26 @@
-# Workspace Profiles — polish 2 handoff
+# Review 3 handoff — Workspace Profiles
 
-## Delivered
+## Done
 
-- Repaired the desktop first screen so the audience, demo action, outcome note, and three facts fit at 1440×900.
-- Made every visible sample-report button work with an announced, observable result at the maximum reading settings.
-- Added installed-extension claim coverage for Chromium storage, no account, no third-party runtime/analytics traffic, reversible visual settings, and site-address assignment.
-- Aligned landing, privacy, README, and focus-control terminology with those tests. The demo remains a separate `demo:` browser-storage sandbox.
-- Preserved the art-deco transit visual system, real routes, 404, metadata, legal links, offline demo, and accessible keyboard/mobile behavior.
+- Performed the requested adversarial, live first-read review at 390×844 and 1440×900 without modifying product code.
+- Wrote `.factory/review-3.md` with the full landing/README sentence audit, demo and sandbox evidence, history recheck, route/accessibility results, and findings.
+- Preserved unrelated pre-existing `graphify-out/` worktree changes.
 
 ## Verification
 
-Run from a clean checkout:
+From a fresh clone at `/tmp/lvw-review-3.Qz575Z`:
 
 ```sh
 npm ci
-npm run lint
 npm test
 npm run build
+npm run lint
+npm run typecheck
 npm run test:site
-npm run test:browser
 ```
 
-The local repair run passed: `npm run lint`; `npm test` (5/5); `npm run build`; `npm run test:site` (9/9, including axe on every public route); and `npm run test:browser` (7/7 packaged-extension claims). A clean clone at `/tmp/lvw-polish2.Ithx1q` repeated the complete suite and all 15 registry commands individually.
+All commands passed. Every one of the 15 claim commands in `.factory/claims.json` was also run individually and passed. Live checks confirmed the isolated demo namespace, reset/start-for-real cleanup, same-origin demo traffic, working report controls, direct routes, HTTP 404, link health, and zero axe violations on the four public routes at 390px.
 
-`.factory/claims.json` contains 15 claims. Each is tagged exactly once and is run individually from a fresh clone before final handoff. `dist/site` is the static deployment artifact and `dist/extension/chrome-mv3` is the unpacked extension.
+## Remaining work
 
-## Deployment and live check
-
-Repair commit `3145691717630e6aa9d59ffc9206d4de57b42a73` is pushed to `main`; production was uploaded with the static work-order configuration from `dist/site` to `https://delightful-desert-07f963e0f.7.azurestaticapps.net`, served at `https://low-vision-workspace-profiles.sociobot.in/`.
-
-A cold live Chromium pass confirmed the complete 1440×900 hero information, working demo buttons, one h1 on Privacy and Terms, and HTTP 404 for `/polish-2-missing`. A separate 390×844 live axe run found 0 violations on `/`, `/demo/`, `/privacy/`, and `/terms/`, with no normal-route console/page errors. Screenshots: `.factory/evidence/polish-2-live-home-1440.png`, `.factory/evidence/polish-2-live-home-390.png`, and `.factory/evidence/polish-2-live-demo-1440.png`.
-
-## Known gaps
-
-None. The product has no paid tier or external runtime service.
+The review verdict is **FAIL**. The blocking gap is an incomplete claim registry for advertised color, cursor-ring, and hold-to-enlarge-focus behavior. Minor gaps concern mobile first-screen facts, route live announcements, 404 social metadata, a generic demo button, and JSON jargon. See `.factory/review-3.md` for exact evidence and fixes.
