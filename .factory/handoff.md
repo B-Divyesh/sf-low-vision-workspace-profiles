@@ -21,13 +21,15 @@ npm run test:site
 npm run test:browser
 ```
 
-The local repair run passed: `npm run lint`; `npm test` (5/5); `npm run build`; `npm run test:site` (9/9, including axe on every public route); and `npm run test:browser` (7/7 packaged-extension claims).
+The local repair run passed: `npm run lint`; `npm test` (5/5); `npm run build`; `npm run test:site` (9/9, including axe on every public route); and `npm run test:browser` (7/7 packaged-extension claims). A clean clone at `/tmp/lvw-polish2.Ithx1q` repeated the complete suite and all 15 registry commands individually.
 
 `.factory/claims.json` contains 15 claims. Each is tagged exactly once and is run individually from a fresh clone before final handoff. `dist/site` is the static deployment artifact and `dist/extension/chrome-mv3` is the unpacked extension.
 
 ## Deployment and live check
 
-The repair is pushed to `main`; the static work-order deployment serves `dist/site`. After deployment, check a cold browser at `https://low-vision-workspace-profiles.sociobot.in/` (1440×900 and 390×844), then `/demo/`, `/privacy/`, `/terms/`, and a missing path. The live verification result and repair commit are recorded in the final work-order message.
+Repair commit `3145691717630e6aa9d59ffc9206d4de57b42a73` is pushed to `main`; production was uploaded with the static work-order configuration from `dist/site` to `https://delightful-desert-07f963e0f.7.azurestaticapps.net`, served at `https://low-vision-workspace-profiles.sociobot.in/`.
+
+A cold live Chromium pass confirmed the complete 1440×900 hero information, working demo buttons, one h1 on Privacy and Terms, and HTTP 404 for `/polish-2-missing`. A separate 390×844 live axe run found 0 violations on `/`, `/demo/`, `/privacy/`, and `/terms/`, with no normal-route console/page errors. Screenshots: `.factory/evidence/polish-2-live-home-1440.png`, `.factory/evidence/polish-2-live-home-390.png`, and `.factory/evidence/polish-2-live-demo-1440.png`.
 
 ## Known gaps
 

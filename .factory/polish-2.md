@@ -23,4 +23,4 @@
 | F-2-3 | Added six packaged-extension claims: `extension-storage`, `extension-no-account`, `extension-no-analytics`, `extension-reversible`, `extension-assignment`, and narrowed `extension-privacy`. Updated landing, privacy, and README copy to match. | `npm run test:browser` (7/7); each registry command is run from a clean clone before handoff. |
 | F-2-4 | Replaced the remaining public “focus enlargement” wording with **hold-to-enlarge focus**. | `.factory/copy-audit.md`; landing copy search. |
 
-No review finding remains open. The deploy evidence and cold live checks are recorded in `.factory/handoff.md` after the work-order deployment.
+Live evidence for every landing/demo visual finding is in `.factory/evidence/polish-2-live-home-1440.png`, `.factory/evidence/polish-2-live-home-390.png`, and `.factory/evidence/polish-2-live-demo-1440.png`. Cold checks used `https://low-vision-workspace-profiles.sociobot.in/`, `/demo/`, `/privacy/`, `/terms/`, and `/polish-2-missing` (HTTP 404). No review finding remains open.
