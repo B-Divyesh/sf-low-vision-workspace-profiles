@@ -27,6 +27,28 @@
       "shared_profiles_sitelabel"
     ],
     "1": [
+      "entrypoints_popup_main_readform",
+      "shared_profiles",
+      "shared_profiles_clamp",
+      "shared_profiles_contrastmode",
+      "shared_profiles_contrasts",
+      "shared_profiles_createprofile",
+      "shared_profiles_empty_data",
+      "shared_profiles_normalizeprofile",
+      "shared_profiles_parseworkspacedata",
+      "shared_profiles_storage_key",
+      "shared_profiles_workspacedata",
+      "shared_profiles_workspaceprofile",
+      "tests_browser_sensitive_fields_spec",
+      "tests_browser_sensitive_fields_spec_clearprofiles",
+      "tests_browser_sensitive_fields_spec_extensionpath",
+      "tests_browser_sensitive_fields_spec_fieldids",
+      "tests_browser_sensitive_fields_spec_fontsizes",
+      "tests_browser_sensitive_fields_spec_profile",
+      "tests_browser_sensitive_fields_spec_saveassignedprofile",
+      "tests_profiles_test"
+    ],
+    "2": [
       "entrypoints_content",
       "entrypoints_content_applyprofile",
       "entrypoints_content_deactivatemagnifier",
@@ -47,7 +69,7 @@
       "entrypoints_content_sensitivefieldfor",
       "shared_profiles_assignedprofile"
     ],
-    "2": [
+    "3": [
       "package",
       "package_name",
       "package_private",
@@ -68,7 +90,7 @@
       "package_type",
       "package_version"
     ],
-    "3": [
+    "4": [
       "ref_dom",
       "ref_dom_iterable",
       "ref_entrypoints_ts",
@@ -88,7 +110,7 @@
       "tsconfig_extends",
       "tsconfig_include"
     ],
-    "4": [
+    "5": [
       "axe_core_playwright",
       "package_devdependencies",
       "package_devdependencies_axe_core_playwright",
@@ -105,21 +127,6 @@
       "vitest",
       "wxt"
     ],
-    "5": [
-      "entrypoints_popup_main_readform",
-      "shared_profiles",
-      "shared_profiles_clamp",
-      "shared_profiles_contrastmode",
-      "shared_profiles_contrasts",
-      "shared_profiles_createprofile",
-      "shared_profiles_empty_data",
-      "shared_profiles_normalizeprofile",
-      "shared_profiles_parseworkspacedata",
-      "shared_profiles_storage_key",
-      "shared_profiles_workspacedata",
-      "shared_profiles_workspaceprofile",
-      "tests_profiles_test"
-    ],
     "6": [
       "site_demo",
       "site_demo_current",
@@ -129,27 +136,25 @@
       "site_demo_seed",
       "site_main",
       "site_route_focus",
+      "site_route_focus_announceroute",
       "site_route_focus_focusheading",
       "site_route_focus_heading",
       "site_route_focus_navigation",
-      "site_route_focus_restorefocus"
+      "site_route_focus_restorefocus",
+      "site_route_focus_routestatus"
     ],
     "7": [
-      "tests_browser_sensitive_fields_spec",
-      "tests_browser_sensitive_fields_spec_clearprofiles",
-      "tests_browser_sensitive_fields_spec_extensionpath",
-      "tests_browser_sensitive_fields_spec_fieldids",
-      "tests_browser_sensitive_fields_spec_fontsizes",
-      "tests_browser_sensitive_fields_spec_profile",
-      "tests_browser_sensitive_fields_spec_saveassignedprofile"
-    ],
-    "8": [
       "scripts_build",
       "scripts_build_dist",
       "scripts_build_downloads",
       "scripts_build_findzip",
       "scripts_build_root",
       "scripts_build_run"
+    ],
+    "8": [
+      "promises",
+      "tests_site_claims_spec",
+      "tests_site_claims_spec_luminance"
     ],
     "9": [
       "site_public_sw",
@@ -168,33 +173,29 @@
       "site_vite_config"
     ],
     "14": [
-      "tests_site_claims_spec"
-    ],
-    "15": [
       "vitest_config"
     ],
-    "16": [
+    "15": [
       "wxt_config"
     ]
   },
   "cohesion": {
     "0": 0.13405797101449277,
-    "1": 0.23976608187134502,
-    "2": 0.10526315789473684,
-    "3": 0.1111111111111111,
-    "4": 0.13333333333333333,
-    "5": 0.23076923076923078,
-    "6": 0.16666666666666666,
-    "7": 0.2857142857142857,
-    "8": 0.3333333333333333,
+    "1": 0.1368421052631579,
+    "2": 0.23976608187134502,
+    "3": 0.10526315789473684,
+    "4": 0.1111111111111111,
+    "5": 0.13333333333333333,
+    "6": 0.16483516483516483,
+    "7": 0.3333333333333333,
+    "8": 0.6666666666666666,
     "9": 1.0,
     "10": 1.0,
     "11": 1.0,
     "12": 1.0,
     "13": 1.0,
     "14": 1.0,
-    "15": 1.0,
-    "16": 1.0
+    "15": 1.0
   },
   "gods": [
     {
@@ -208,6 +209,11 @@
       "degree": 9
     },
     {
+      "id": "tsconfig_include",
+      "label": "include",
+      "degree": 7
+    },
+    {
       "id": "entrypoints_popup_main_initialize",
       "label": "initialize()",
       "degree": 7
@@ -218,24 +224,9 @@
       "degree": 7
     },
     {
-      "id": "tsconfig_include",
-      "label": "include",
-      "degree": 7
-    },
-    {
       "id": "entrypoints_popup_main_openeditor",
       "label": "openEditor()",
       "degree": 6
-    },
-    {
-      "id": "entrypoints_popup_main_updatesitestate",
-      "label": "updateSiteState()",
-      "degree": 5
-    },
-    {
-      "id": "shared_profiles_sitelabel",
-      "label": "siteLabel()",
-      "degree": 5
     },
     {
       "id": "entrypoints_content_applyprofile",
@@ -246,14 +237,24 @@
       "id": "entrypoints_content_magnifyfocused",
       "label": "magnifyFocused()",
       "degree": 5
+    },
+    {
+      "id": "entrypoints_content_refreshprofile",
+      "label": "refreshProfile()",
+      "degree": 5
+    },
+    {
+      "id": "tsconfig_compileroptions",
+      "label": "compilerOptions",
+      "degree": 5
     }
   ],
   "surprises": [
     {
-      "source": "initialize()",
+      "source": "refreshProfile()",
       "target": "parseWorkspaceData()",
       "source_files": [
-        "entrypoints/popup/main.ts",
+        "entrypoints/content.ts",
         "shared/profiles.ts"
       ],
       "confidence": "EXTRACTED",
@@ -261,10 +262,10 @@
       "why": "connects across different repos/directories; bridges separate communities"
     },
     {
-      "source": "refreshProfile()",
+      "source": "initialize()",
       "target": "parseWorkspaceData()",
       "source_files": [
-        "entrypoints/content.ts",
+        "entrypoints/popup/main.ts",
         "shared/profiles.ts"
       ],
       "confidence": "EXTRACTED",
@@ -283,10 +284,10 @@
       "why": "connects across different repos/directories; peripheral node `readForm()` unexpectedly reaches hub `createProfile()`"
     },
     {
-      "source": "initialize()",
-      "target": "siteLabel()",
+      "source": "refreshProfile()",
+      "target": "assignedProfile()",
       "source_files": [
-        "entrypoints/popup/main.ts",
+        "entrypoints/content.ts",
         "shared/profiles.ts"
       ],
       "confidence": "EXTRACTED",
@@ -294,7 +295,7 @@
       "why": "connects across different repos/directories"
     },
     {
-      "source": "updateSiteState()",
+      "source": "initialize()",
       "target": "siteLabel()",
       "source_files": [
         "entrypoints/popup/main.ts",
