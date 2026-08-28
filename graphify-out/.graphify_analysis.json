@@ -48,6 +48,27 @@
       "shared_profiles_assignedprofile"
     ],
     "2": [
+      "package",
+      "package_name",
+      "package_private",
+      "package_scripts",
+      "package_scripts_build",
+      "package_scripts_build_extension",
+      "package_scripts_build_site",
+      "package_scripts_dev",
+      "package_scripts_dev_site",
+      "package_scripts_lint",
+      "package_scripts_postinstall",
+      "package_scripts_test",
+      "package_scripts_test_browser",
+      "package_scripts_test_claims",
+      "package_scripts_test_site",
+      "package_scripts_test_watch",
+      "package_scripts_typecheck",
+      "package_type",
+      "package_version"
+    ],
+    "3": [
       "ref_dom",
       "ref_dom_iterable",
       "ref_entrypoints_ts",
@@ -66,25 +87,6 @@
       "tsconfig_compileroptions_target",
       "tsconfig_extends",
       "tsconfig_include"
-    ],
-    "3": [
-      "package",
-      "package_name",
-      "package_private",
-      "package_scripts",
-      "package_scripts_build",
-      "package_scripts_build_extension",
-      "package_scripts_build_site",
-      "package_scripts_dev",
-      "package_scripts_dev_site",
-      "package_scripts_lint",
-      "package_scripts_postinstall",
-      "package_scripts_test",
-      "package_scripts_test_browser",
-      "package_scripts_test_watch",
-      "package_scripts_typecheck",
-      "package_type",
-      "package_version"
     ],
     "4": [
       "axe_core_playwright",
@@ -119,18 +121,18 @@
       "tests_profiles_test"
     ],
     "6": [
+      "site_demo",
+      "site_demo_current",
+      "site_demo_demostate",
+      "site_demo_read",
+      "site_demo_render",
+      "site_demo_seed",
       "site_main",
-      "site_main_cachedverdict",
-      "site_main_extra",
-      "site_main_form",
-      "site_main_params",
-      "site_main_restorebutton",
-      "site_main_returnedlicense",
-      "site_main_setunlocked",
-      "site_main_status",
-      "site_main_tokeninput",
-      "site_main_verdict",
-      "site_main_verify"
+      "site_route_focus",
+      "site_route_focus_focusheading",
+      "site_route_focus_heading",
+      "site_route_focus_navigation",
+      "site_route_focus_restorefocus"
     ],
     "7": [
       "scripts_build",
@@ -148,33 +150,40 @@
       "tests_browser_sensitive_fields_spec_profile"
     ],
     "9": [
+      "promises",
+      "tests_site_claims_spec"
+    ],
+    "10": [
       "site_public_sw",
       "site_public_sw_shell"
     ],
-    "10": [
+    "11": [
       "entrypoints_background"
     ],
-    "11": [
+    "12": [
       "playwright_config"
     ],
-    "12": [
-      "site_vite_config"
-    ],
     "13": [
-      "vitest_config"
+      "playwright_site_config"
     ],
     "14": [
+      "site_vite_config"
+    ],
+    "15": [
+      "vitest_config"
+    ],
+    "16": [
       "wxt_config"
     ]
   },
   "cohesion": {
     "0": 0.13405797101449277,
     "1": 0.23976608187134502,
-    "2": 0.1111111111111111,
-    "3": 0.11764705882352941,
+    "2": 0.10526315789473684,
+    "3": 0.1111111111111111,
     "4": 0.13333333333333333,
     "5": 0.23076923076923078,
-    "6": 0.19696969696969696,
+    "6": 0.16666666666666666,
     "7": 0.3333333333333333,
     "8": 0.4,
     "9": 1.0,
@@ -182,13 +191,15 @@
     "11": 1.0,
     "12": 1.0,
     "13": 1.0,
-    "14": 1.0
+    "14": 1.0,
+    "15": 1.0,
+    "16": 1.0
   },
   "gods": [
     {
       "id": "package_scripts",
       "label": "scripts",
-      "degree": 12
+      "degree": 14
     },
     {
       "id": "entrypoints_content_main",
