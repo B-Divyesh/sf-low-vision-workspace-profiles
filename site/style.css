@@ -216,6 +216,7 @@ kbd { padding: 2px 6px; border: 1px solid #79725d; border-bottom-width: 3px; col
 .sample-document > label { display: block; margin-bottom: 7px; font-weight: 800; }
 .sample-document > input { width: 100%; }
 .eyebrow { color: var(--signal-deep); font-weight: 800; text-transform: uppercase; }
+.sample-document[data-color="warm"] .eyebrow, .sample-document[data-color="site"] .eyebrow, .sample-document[data-color="contrast"] .eyebrow { color: #852727; }
 
 @media (max-width: 980px) {
   .site-header { grid-template-columns: 1fr auto; }.site-header nav { display: none; }
@@ -251,6 +252,7 @@ kbd { padding: 2px 6px; border: 1px solid #79725d; border-bottom-width: 3px; col
   .profile-demo { color: var(--ink); }.demo-head { color: var(--cream); }
   .privacy-mark { background: var(--surface); }
   .button.primary, .route-label span, .hero-ticket, .demo-toggle span { color: #101c25; }
+  .demo-banner { color: #101c25; }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -71,6 +71,7 @@ test('routes, metadata, mobile first screen, keyboard, and accessibility', async
     await page.goto(route); expect((await page.title()).length).toBeGreaterThan(5); await expect(page.locator('main')).toHaveCount(1); await expect(page.locator('h1')).toHaveCount(1);
     await expect(page.locator('link[rel="canonical"]')).toHaveCount(1); await expect(page.locator('meta[property="og:image"]')).toHaveCount(1); await expect(page.locator('link[rel="apple-touch-icon"]')).toHaveCount(1);
     const results = await new AxeBuilder({ page }).analyze(); expect(results.violations).toEqual([]);
+    await page.emulateMedia({ colorScheme: 'dark', reducedMotion: 'reduce' }); const darkResults = await new AxeBuilder({ page }).analyze(); expect(darkResults.violations).toEqual([]); await page.emulateMedia({ colorScheme: 'light' });
   }
   await page.setViewportSize({ width: 390, height: 844 }); await page.goto('/');
   await expect(page.getByRole('heading', { level: 1 })).toBeInViewport(); await expect(page.getByRole('link', { name: 'Try it with sample data' }).first()).toBeInViewport(); await expect(page.getByRole('link', { name: 'Download the extension' }).first()).toBeVisible();
