@@ -1,0 +1,14 @@
+{
+  "url": "https://low-vision-workspace-profiles.sociobot.in/",
+  "loadMs": 744,
+  "errors": [],
+  "a11y": {
+    "title": "Workspace Profiles — save reading settings per site",
+    "lang": "en",
+    "h1": 1,
+    "main": true,
+    "imgsMissingAlt": 0,
+    "buttonsUnlabeled": 0,
+    "textLength": 2031
+  }
+}

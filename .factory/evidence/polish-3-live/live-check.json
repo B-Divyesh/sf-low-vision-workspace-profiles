@@ -1,0 +1,165 @@
+{
+  "checkedAt": "2026-08-28T13:56:34.431Z",
+  "commit": "ad1fea7d9845c68403f2547dce09b21c65d68b79",
+  "deploymentId": "f749ad8d-8f45-40c4-89bf-cde7b3f1a7a3",
+  "routes": {
+    "/": {
+      "status": 200,
+      "title": "Workspace Profiles — save reading settings per site",
+      "titleMatches": true,
+      "h1": 1,
+      "main": 1,
+      "description": true,
+      "canonical": true,
+      "openGraph": true,
+      "twitter": true,
+      "touchIcon": true,
+      "routeStatus": "polite",
+      "overflow": 0,
+      "axeViolations": 0,
+      "buttonContrastRatios": [
+        5.98,
+        15.98,
+        15.98
+      ]
+    },
+    "/demo/": {
+      "status": 200,
+      "title": "Demo — Workspace Profiles",
+      "titleMatches": true,
+      "h1": 1,
+      "main": 1,
+      "description": true,
+      "canonical": true,
+      "openGraph": true,
+      "twitter": true,
+      "touchIcon": true,
+      "routeStatus": "polite",
+      "overflow": 0,
+      "axeViolations": 0,
+      "buttonContrastRatios": [
+        15.98
+      ]
+    },
+    "/privacy/": {
+      "status": 200,
+      "title": "Privacy — Workspace Profiles",
+      "titleMatches": true,
+      "h1": 1,
+      "main": 1,
+      "description": true,
+      "canonical": true,
+      "openGraph": true,
+      "twitter": true,
+      "touchIcon": true,
+      "routeStatus": "polite",
+      "overflow": 0,
+      "axeViolations": 0,
+      "buttonContrastRatios": []
+    },
+    "/terms/": {
+      "status": 200,
+      "title": "Terms — Workspace Profiles",
+      "titleMatches": true,
+      "h1": 1,
+      "main": 1,
+      "description": true,
+      "canonical": true,
+      "openGraph": true,
+      "twitter": true,
+      "touchIcon": true,
+      "routeStatus": "polite",
+      "overflow": 0,
+      "axeViolations": 0,
+      "buttonContrastRatios": []
+    }
+  },
+  "demo": {
+    "demoUrl": "https://low-vision-workspace-profiles.sociobot.in/demo/",
+    "banner": true,
+    "keysBeforeReset": [
+      "demo:workspace-profiles:reports-example",
+      "workspace-profiles:real"
+    ],
+    "sentinelBeforeReset": "keep-me",
+    "shareStatus": "Sample report shared with your workspace.",
+    "copyStatus": "Sample summary copied.",
+    "buttonContrastRatios": [
+      15.98
+    ],
+    "afterReset": {
+      "demoKey": null,
+      "sentinel": "keep-me",
+      "textScale": "140",
+      "note": "Review June follow-up",
+      "actionsHidden": true,
+      "shareStatus": "",
+      "copyStatus": ""
+    },
+    "sameOriginRequests": true,
+    "startForRealDemoKey": null
+  },
+  "focus": {
+    "forward": {
+      "active": "H1:Try a reading profile on a sample report",
+      "announcement": "Try a reading profile on a sample report"
+    },
+    "back": {
+      "active": "Demo",
+      "announcement": "Save readable settings for each work site"
+    }
+  },
+  "offline": {
+    "title": "Demo — Workspace Profiles",
+    "h1": "Try a reading profile on a sample report",
+    "banner": true
+  },
+  "links": {
+    "/downloads/workspace-profiles-chrome.zip": 200,
+    "/robots.txt": 200,
+    "/sitemap.xml": 200,
+    "/privacy/": 200,
+    "/terms/": 200
+  },
+  "normalRouteErrors": [],
+  "firstScreen390": {
+    "h1": {
+      "top": 124,
+      "bottom": 240,
+      "inViewport": true
+    },
+    "demoAction": {
+      "top": 307,
+      "bottom": 355,
+      "inViewport": true
+    },
+    "downloadAction": {
+      "top": 365,
+      "bottom": 413,
+      "inViewport": true
+    },
+    "outcome": {
+      "top": 425,
+      "bottom": 494,
+      "inViewport": true
+    },
+    "facts": {
+      "top": 502,
+      "bottom": 587,
+      "inViewport": true
+    }
+  },
+  "notFound": {
+    "status": 404,
+    "title": "404 — Workspace Profiles",
+    "h1": "This page is not on the map",
+    "ogTitle": "404 — Workspace Profiles",
+    "ogImage": "https://low-vision-workspace-profiles.sociobot.in/assets/social-card.jpg",
+    "twitter": "summary_large_image",
+    "axeViolations": 0,
+    "buttonContrastRatios": [
+      15.98,
+      15.98
+    ]
+  }
+}

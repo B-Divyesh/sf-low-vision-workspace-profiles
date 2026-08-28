@@ -2,6 +2,8 @@
 
 Repair target: candidate `38830205f323fedbc6b3b4f0db60aebb45d1e6de`, cumulative reviews 1–3.
 
+Production was checked cold at <https://low-vision-workspace-profiles.sociobot.in/> after deployment. The shared live evidence bundle is `.factory/evidence/polish-3-live/live-check.json`, with `home-390.png`, `home-1440.png`, `demo-390.png`, and `404-390.png` in the same directory. Source-only documentation findings use `.factory/copy-audit.md` as their non-visual evidence.
+
 | Finding | Change made | Evidence |
 |---|---|---|
 | F-1-1 | Kept the verb-first job headline, low-vision audience, named demo and download actions, outcome note, and three facts before the mobile artwork. | `routes, metadata, mobile first screen, keyboard, and accessibility`; `.factory/evidence/polish-3-local-home-390.png`; cold `/` check at 390×844. |
@@ -33,9 +35,11 @@ Repair target: candidate `38830205f323fedbc6b3b4f0db60aebb45d1e6de`, cumulative 
 
 ## Verification summary
 
-- Local: `npm test`, `npm run lint`, `npm run typecheck`, `npm run test:site`, and `npm run test:browser` pass.
+- Clean checkout at `ad1fea7d9845c68403f2547dce09b21c65d68b79`: `npm ci`, `npm test`, `npm run lint`, `npm run typecheck`, `npm run build`, `npm run test:site`, and `npm run test:browser` pass.
+- Claims: every one of the 18 commands in `.factory/claims.json` passes individually from that clean clone.
 - Accessibility: Playwright axe reports zero violations on all public routes in light and dark/reduced-motion modes and on the packaged popup.
-- Performance: local mobile Lighthouse reports 100 Performance, 100 Accessibility, 100 Best Practices, and 100 SEO; LCP 1.6 s, TBT 0 ms, CLS 0.
+- Performance: live mobile Lighthouse reports 100 Performance, 100 Accessibility, 100 Best Practices, and 100 SEO; LCP 1.2 s, TBT 50 ms, CLS 0.
 - Payload: initial site JS 4.7 KB total, CSS 22.8 KB, font 24.9 KB, and mobile AVIF hero 31.0 KB.
+- Deployment: Azure deployment `f749ad8d-8f45-40c4-89bf-cde7b3f1a7a3`; the public site and downloadable extension match the clean-checkout build byte for byte.
 
-Live deployment evidence and the final commit id are recorded in `.factory/handoff.md` after deployment.
+The final cold visual pass also found and closed two defects beyond the written findings: dark-mode secondary-button labels now meet at least 5.98:1 contrast, and Reset demo clears all transient sample state. Both are covered by `routes, metadata, mobile first screen, keyboard, and accessibility` and `@claim:demo-isolation`.
