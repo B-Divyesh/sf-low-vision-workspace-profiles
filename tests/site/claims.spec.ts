@@ -8,11 +8,20 @@ test('@claim:demo-isolation opens seeded data and keeps real storage untouched',
   await expect(page.getByText('Demo — sample data, nothing is saved to your real profiles')).toBeVisible();
   await expect(page.getByText('Quarterly service report')).toBeVisible();
   await page.locator('#text-scale').fill('160');
+  await page.locator('#sample-note').fill('Changed demo note');
+  await page.getByRole('button', { name: 'Share report' }).click();
+  await page.getByRole('button', { name: 'Show report actions' }).click();
+  await page.getByRole('button', { name: 'Copy summary' }).click();
   const keys = await page.evaluate(() => Object.keys(localStorage));
   expect(keys.filter((key) => key !== 'workspace-profiles:real')).toEqual(['demo:workspace-profiles:reports-example']);
   expect(await page.evaluate(() => localStorage.getItem('workspace-profiles:real'))).toBe('keep-me');
   await page.getByRole('button', { name: 'Reset demo' }).click();
   expect(await page.evaluate(() => localStorage.getItem('demo:workspace-profiles:reports-example'))).toBeNull();
+  await expect(page.locator('#text-scale')).toHaveValue('140');
+  await expect(page.locator('#sample-note')).toHaveValue('Review June follow-up');
+  await expect(page.locator('#sample-actions')).toBeHidden();
+  await expect(page.locator('#sample-action-status')).toBeEmpty();
+  await expect(page.locator('#copy-status')).toBeEmpty();
 });
 
 test('@claim:reading-controls applies the stated text and spacing ranges', async ({ page }) => {
