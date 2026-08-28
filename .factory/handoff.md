@@ -1,3 +1,13 @@
+# Workspace Profiles — independent QA handoff
+
+## Independent verification 2 release status
+
+**PASS — independently verified 2026-08-28.** Candidate `0be3186142079e11d79057c143a88ce1936f8301` is live at <https://low-vision-workspace-profiles.sociobot.in/> and is byte-for-byte identical for the checked page, assets, service worker, legal pages, and downloadable extension zip. See [verification-2.md](verification-2.md) for exact commands and evidence.
+
+The prior release blocker is resolved: production-built extension checks confirm that the maximum 180% profile enlarges ordinary reading controls while password, payment, card, CVC/CVV, autocomplete card, and payment-textarea fields retain baseline computed styles. Real popup UI testing covered create/save/apply, required-name recovery, invalid-import recovery, delete confirmation, and Undo; no console/page errors were observed. Live axe scans found 0 serious/critical findings on the extension popup and public pages; desktop, 390px mobile, keyboard skip behavior, reduced motion, service-worker update, and offline reload passed.
+
+**Non-blocking follow-up:** live hashed assets currently use a 30-second `Cache-Control` lifetime rather than long-lived immutable caching. This is recorded as a low-severity deployment optimization in `verification-2.md`.
+
 # Workspace Profiles — repair handoff
 
 ## Release status
