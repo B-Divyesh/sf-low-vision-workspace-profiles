@@ -654,30 +654,10 @@
       "source_location": "L1"
     },
     {
-      "id": "site_public_sw",
-      "label": "sw.js",
-      "_origin": "ast",
-      "community": 10,
-      "file_type": "code",
-      "norm_label": "sw.js",
-      "source_file": "site/public/sw.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "site_public_sw_shell",
-      "label": "SHELL",
-      "_origin": "ast",
-      "community": 10,
-      "file_type": "code",
-      "norm_label": "shell",
-      "source_file": "site/public/sw.js",
-      "source_location": "L2"
-    },
-    {
       "id": "entrypoints_background",
       "label": "background.ts",
       "_origin": "ast",
-      "community": 11,
+      "community": 10,
       "file_type": "code",
       "norm_label": "background.ts",
       "source_file": "entrypoints/background.ts",
@@ -687,7 +667,7 @@
       "id": "playwright_config",
       "label": "playwright.config.ts",
       "_origin": "ast",
-      "community": 12,
+      "community": 11,
       "file_type": "code",
       "norm_label": "playwright.config.ts",
       "source_file": "playwright.config.ts",
@@ -697,7 +677,7 @@
       "id": "playwright_site_config",
       "label": "playwright.site.config.ts",
       "_origin": "ast",
-      "community": 13,
+      "community": 12,
       "file_type": "code",
       "norm_label": "playwright.site.config.ts",
       "source_file": "playwright.site.config.ts",
@@ -707,10 +687,20 @@
       "id": "site_vite_config",
       "label": "vite.config.ts",
       "_origin": "ast",
-      "community": 14,
+      "community": 13,
       "file_type": "code",
       "norm_label": "vite.config.ts",
       "source_file": "site/vite.config.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "tests_site_claims_spec",
+      "label": "claims.spec.ts",
+      "_origin": "ast",
+      "community": 14,
+      "file_type": "code",
+      "norm_label": "claims.spec.ts",
+      "source_file": "tests/site/claims.spec.ts",
       "source_location": "L1"
     },
     {
@@ -1444,24 +1434,24 @@
       "source_location": "L8"
     },
     {
-      "id": "promises",
-      "label": "node:fs/promises",
+      "id": "site_public_sw",
+      "label": "sw.js",
       "_origin": "ast",
       "community": 9,
-      "confidence": "EXTRACTED",
       "file_type": "code",
-      "norm_label": "node:fs/promises",
-      "source_file": "node:fs/promises"
+      "norm_label": "sw.js",
+      "source_file": "site/public/sw.js",
+      "source_location": "L1"
     },
     {
-      "id": "tests_site_claims_spec",
-      "label": "claims.spec.ts",
+      "id": "site_public_sw_shell",
+      "label": "SHELL",
       "_origin": "ast",
       "community": 9,
       "file_type": "code",
-      "norm_label": "claims.spec.ts",
-      "source_file": "tests/site/claims.spec.ts",
-      "source_location": "L1"
+      "norm_label": "shell",
+      "source_file": "site/public/sw.js",
+      "source_location": "L2"
     }
   ],
   "links": [
@@ -3477,15 +3467,6 @@
       "weight": 1.0
     },
     {
-      "source": "tests_site_claims_spec",
-      "target": "promises",
-      "relation": "dynamic_import",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "tests/site/claims.spec.ts"
-    },
-    {
       "source": "entrypoints_content_main",
       "target": "entrypoints_content_onkeydown",
       "relation": "indirect_call",
@@ -3583,5 +3564,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "c9f3ace34a8be157bdfd08a192dae8b78573348f"
+  "built_at_commit": "9fcca39a9c4a2e98c0bc4ca7b0eabbf8bd700dac"
 }
