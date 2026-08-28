@@ -8,7 +8,7 @@ A profile controls text size, line spacing, color, the cursor ring, and hold-to-
 
 Open [the sample-data demo](https://low-vision-workspace-profiles.sociobot.in/demo/). It starts with a `Quarterly reports` profile assigned to `reports.example`.
 
-Change or pause the sample profile and export it as JSON. **Reset demo** removes the `demo:workspace-profiles:reports-example` key. Demo code does not read extension data. See [`.factory/demo.md`](.factory/demo.md).
+Change or pause the sample profile and export it as JSON. **Reset demo** removes the `demo:workspace-profiles:reports-example` key. The demo uses this separate browser-storage key. See [`.factory/demo.md`](.factory/demo.md).
 
 ## Install and run locally
 
@@ -38,7 +38,7 @@ Before release, serve `dist/site`. Run the accessibility checks. Test keyboard n
 
 ## Privacy
 
-Profiles and site assignments use Chromium extension storage. The extension includes no analytics or third-party runtime scripts. Read the [privacy notice](site/privacy/index.html).
+Profiles and site assignments use Chromium extension storage. The extension includes no analytics or third-party runtime scripts. Read the [privacy notice](site/privacy/index.html). These claims are tested as `extension-storage` and `extension-no-analytics` in the claim registry.
 
 ## Deployment
 

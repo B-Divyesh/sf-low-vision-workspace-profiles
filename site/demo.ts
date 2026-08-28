@@ -23,5 +23,16 @@ function current(): DemoState { return { textScale: +textScale.value, lineHeight
 document.querySelector('#reset-demo')?.addEventListener('click', () => { localStorage.removeItem(key); render({ ...seed }, false, false); status.textContent = 'Demo reset to the sample profile.'; });
 document.querySelector('#start-real')?.addEventListener('click', () => localStorage.removeItem(key));
 document.querySelector('#export-demo')?.addEventListener('click', () => { const blob = new Blob([JSON.stringify({ profile: 'Quarterly reports', site: 'reports.example', ...current() }, null, 2)], { type: 'application/json' }); const link = document.createElement('a'); link.href = URL.createObjectURL(blob); link.download = 'workspace-profile-demo.json'; link.click(); URL.revokeObjectURL(link.href); status.textContent = 'Sample profile exported as JSON.'; });
+document.querySelector<HTMLButtonElement>('#share-report')?.addEventListener('click', () => {
+  document.querySelector('#sample-action-status')!.textContent = 'Sample report shared with your workspace.';
+});
+document.querySelector<HTMLButtonElement>('#more-actions')?.addEventListener('click', () => {
+  const menu = document.querySelector<HTMLElement>('#sample-actions')!;
+  menu.hidden = !menu.hidden;
+  document.querySelector<HTMLButtonElement>('#more-actions')!.setAttribute('aria-expanded', String(!menu.hidden));
+});
+document.querySelector<HTMLButtonElement>('#copy-summary')?.addEventListener('click', () => {
+  document.querySelector('#copy-status')!.textContent = 'Sample summary copied.';
+});
 render(read(), false, localStorage.getItem(key) !== null);
 if ('serviceWorker' in navigator && location.protocol === 'https:') window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => undefined));

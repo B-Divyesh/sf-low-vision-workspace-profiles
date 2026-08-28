@@ -1,6 +1,6 @@
 import { expect, test, chromium, type BrowserContext, type Page } from '@playwright/test';
 import { createServer, type Server } from 'node:http';
-import { mkdtempSync, rmSync } from 'node:fs';
+import { mkdtempSync, readFileSync, readdirSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { resolve } from 'node:path';
 
@@ -60,18 +60,23 @@ test.afterAll(async () => {
   if (userDataDir) rmSync(userDataDir, { recursive: true, force: true });
 });
 
+async function saveAssignedProfile(hostname = '127.0.0.1') {
+  const worker = context.serviceWorkers()[0] ?? await context.waitForEvent('serviceworker');
+  await worker.evaluate(({ value, host }) => chrome.storage.local.set({
+    workspaceProfilesData: { version: 1, profiles: [value], assignments: { [host]: value.id } }
+  }), { value: profile, host: hostname });
+}
+
+async function clearProfiles() {
+  const worker = context.serviceWorkers()[0] ?? await context.waitForEvent('serviceworker');
+  await worker.evaluate(() => chrome.storage.local.remove('workspaceProfilesData'));
+}
+
 test('@claim:sensitive-fields maximum profile scale never changes sensitive payment field styles', async () => {
   await page.goto(origin);
   const baseline = await fontSizes(page);
 
-  const worker = context.serviceWorkers()[0] ?? await context.waitForEvent('serviceworker');
-  await worker.evaluate(({ value, hostname }) => chrome.storage.local.set({
-    workspaceProfilesData: {
-      version: 1,
-      profiles: [value],
-      assignments: { [hostname]: value.id }
-    }
-  }), { value: profile, hostname: '127.0.0.1' });
+  await saveAssignedProfile();
 
   await page.reload();
   await expect(page.locator('html')).toHaveAttribute('data-wp-active', 'true');
@@ -86,10 +91,61 @@ async function fontSizes(target: Page): Promise<Record<string, string>> {
   return target.evaluate((ids) => Object.fromEntries(ids.map((id) => [id, getComputedStyle(document.querySelector(`#${id}`)!).fontSize])), ['plain', ...fieldIds]);
 }
 
+test('@claim:extension-storage keeps an assigned profile in Chromium extension storage', async () => {
+  await clearProfiles();
+  await saveAssignedProfile();
+  const worker = context.serviceWorkers()[0] ?? await context.waitForEvent('serviceworker');
+  const stored = await worker.evaluate(() => chrome.storage.local.get('workspaceProfilesData'));
+  expect(stored.workspaceProfilesData).toMatchObject({
+    profiles: [{ id: 'maximum-reading', textScale: 180 }],
+    assignments: { '127.0.0.1': 'maximum-reading' }
+  });
+  await page.goto(origin); await page.reload();
+  await expect(page.locator('html')).toHaveAttribute('data-wp-active', 'true');
+});
+
+test('@claim:extension-no-account uses no account permission or sign-in flow', async () => {
+  const manifest = JSON.parse(readFileSync(resolve(extensionPath, 'manifest.json'), 'utf8'));
+  expect(manifest.permissions ?? []).not.toContain('identity');
+  expect(manifest.oauth2).toBeUndefined();
+  await clearProfiles(); await saveAssignedProfile(); await page.goto(origin); await page.reload();
+  await expect(page.locator('html')).toHaveAttribute('data-wp-active', 'true');
+});
+
+test('@claim:extension-no-analytics has no third-party runtime script or network request', async () => {
+  const files = readdirSync(extensionPath, { recursive: true }).filter((entry) => String(entry).endsWith('.js'));
+  for (const file of files) expect(readFileSync(resolve(extensionPath, String(file)), 'utf8')).not.toMatch(/https?:\/\/(?!127\.0\.0\.1)/);
+  const requested: string[] = [];
+  page.on('request', (request) => requested.push(request.url()));
+  await clearProfiles(); await saveAssignedProfile(); await page.goto(origin); await page.reload();
+  expect(requested.filter((url) => url.startsWith('http')).every((url) => new URL(url).origin === origin)).toBe(true);
+});
+
+test('@claim:extension-reversible applies and removes visual reading settings', async () => {
+  await clearProfiles(); await page.goto(origin);
+  const baseline = await page.locator('#reading').evaluate((node) => getComputedStyle(node).fontSize);
+  await saveAssignedProfile(); await page.reload();
+  await expect(page.locator('html')).toHaveAttribute('data-wp-active', 'true');
+  expect(await page.locator('#reading').evaluate((node) => getComputedStyle(node).fontSize)).not.toBe(baseline);
+  await clearProfiles(); await page.reload();
+  await expect(page.locator('html')).not.toHaveAttribute('data-wp-active');
+  expect(await page.locator('#reading').evaluate((node) => getComputedStyle(node).fontSize)).toBe(baseline);
+});
+
+test('@claim:extension-assignment applies only on the assigned site address', async () => {
+  await clearProfiles(); await saveAssignedProfile('127.0.0.1');
+  await page.goto(origin); await page.reload();
+  await expect(page.locator('html')).toHaveAttribute('data-wp-active', 'true');
+  const other = await context.newPage();
+  await other.goto(`http://localhost:${new URL(origin).port}`);
+  await expect(other.locator('html')).not.toHaveAttribute('data-wp-active');
+  await other.close();
+});
+
 test('@claim:extension-privacy applies a profile without a remote request', async () => {
   const requested: string[] = [];
   page.on('request', (request) => requested.push(request.url()));
-  await page.goto(origin);
+  await clearProfiles(); await saveAssignedProfile(); await page.goto(origin);
   await page.waitForTimeout(250);
   expect(requested.length).toBeGreaterThan(0);
   expect(requested.every((url) => new URL(url).origin === origin)).toBe(true);

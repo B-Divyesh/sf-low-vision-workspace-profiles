@@ -22,7 +22,12 @@ test('@claim:reading-controls applies the stated text and spacing ranges', async
   await expect(page.locator('#text-value')).toHaveText('180%'); await expect(page.locator('#line-value')).toHaveText('2.00×');
   const computed = await reading.evaluate((node) => ({ size: getComputedStyle(node).fontSize, line: getComputedStyle(node).lineHeight }));
   expect(parseFloat(computed.size)).toBeGreaterThanOrEqual(28); expect(parseFloat(computed.line)).toBeGreaterThan(parseFloat(computed.size));
-  await expect(page.locator('.sample-toolbar button').first()).toBeEnabled();
+  await page.getByRole('button', { name: 'Share report' }).click();
+  await expect(page.locator('#sample-action-status')).toHaveText('Sample report shared with your workspace.');
+  await page.getByRole('button', { name: 'More actions' }).click();
+  await expect(page.getByRole('button', { name: 'Copy summary' })).toBeVisible();
+  await page.getByRole('button', { name: 'Copy summary' }).click();
+  await expect(page.locator('#copy-status')).toHaveText('Sample summary copied.');
   expect(await page.locator('.sample-toolbar button').first().evaluate((node) => getComputedStyle(node).fontSize)).toBe('18px');
 });
 
@@ -75,6 +80,9 @@ test('routes, metadata, mobile first screen, keyboard, and accessibility', async
   }
   await page.setViewportSize({ width: 390, height: 844 }); await page.goto('/');
   await expect(page.getByRole('heading', { level: 1 })).toBeInViewport(); await expect(page.getByRole('link', { name: 'Try it with sample data' }).first()).toBeInViewport(); await expect(page.getByRole('link', { name: 'Download the extension' }).first()).toBeVisible();
+  await page.setViewportSize({ width: 1440, height: 900 }); await page.goto('/');
+  await expect(page.getByRole('heading', { level: 1 })).toBeInViewport(); await expect(page.locator('.hero-lede')).toBeInViewport();
+  await expect(page.getByRole('link', { name: 'Try it with sample data' }).first()).toBeInViewport(); await expect(page.locator('.action-note')).toBeInViewport(); await expect(page.locator('.plain-facts')).toBeInViewport();
   await page.keyboard.press('Tab'); await expect(page.getByRole('link', { name: 'Skip to main content' })).toBeFocused();
   await page.getByRole('link', { name: 'Demo' }).click(); await expect(page.getByRole('heading', { level: 1 })).toBeFocused(); await page.goBack(); await expect(page.getByRole('link', { name: 'Demo' })).toBeFocused();
   const response = await page.goto('/not-a-real-page'); expect(response?.status()).toBe(404);
