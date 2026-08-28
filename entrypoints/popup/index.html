@@ -11,7 +11,7 @@
     <header class="masthead">
       <div class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></div>
       <div>
-        <p class="eyebrow">Readable route</p>
+        <p class="eyebrow">Reading profile</p>
         <h1>Workspace Profiles</h1>
       </div>
       <span id="site-state" class="state-dot" role="img" title="Profile state" aria-label="Loading site state"></span>
@@ -20,7 +20,7 @@
     <main id="main">
       <section id="loading-state" class="state-panel" aria-live="polite">
         <div class="loader" aria-hidden="true"></div>
-        <p>Finding this workspace…</p>
+        <p>Finding this site…</p>
       </section>
 
       <section id="unsupported-state" class="state-panel" hidden>
@@ -30,16 +30,16 @@
 
       <section id="empty-state" class="state-panel" hidden>
         <div class="route-empty" aria-hidden="true"><i></i><i></i><i></i></div>
-        <p class="station-label">No routes yet</p>
+        <p class="station-label">No profiles yet</p>
         <h2>Make <span data-site-label>this site</span> readable</h2>
-        <p>Start with larger text and a cursor halo. You can tune every control before it is applied.</p>
+        <p>Start with larger text and a cursor ring. You can tune every control before it is applied.</p>
         <button id="create-first" class="button primary" type="button">Create my first profile</button>
       </section>
 
       <section id="editor" hidden>
         <div class="site-banner">
           <div>
-            <p class="eyebrow">Current station</p>
+            <p class="eyebrow">Current site</p>
             <strong data-site-label>this site</strong>
           </div>
           <label class="switch-row" for="site-enabled">
@@ -71,12 +71,12 @@
               <div class="range-heading"><label for="line-spacing">Line spacing</label><output id="line-spacing-value" for="line-spacing">1.55×</output></div>
               <input id="line-spacing" type="range" min="1.2" max="2" step="0.05" value="1.55" />
             </div>
-            <label for="contrast">Contrast treatment</label>
+            <label for="contrast">Color</label>
             <select id="contrast">
               <option value="site">Keep site colors</option>
               <option value="soft">Warm paper</option>
               <option value="high">High contrast</option>
-              <option value="night">Night route</option>
+              <option value="night">Night</option>
             </select>
           </fieldset>
 
@@ -84,13 +84,13 @@
             <legend>Finding your place</legend>
             <label class="check-row" for="cursor-halo">
               <input id="cursor-halo" type="checkbox" />
-              <span><strong>Cursor halo</strong><small>A brass ring follows pointer and keyboard focus.</small></span>
+              <span><strong>Cursor ring</strong><small>A brass ring follows the pointer and keyboard focus.</small></span>
             </label>
             <div class="range-row">
-              <div class="range-heading"><label for="focus-scale">Focus magnification</label><output id="focus-scale-value" for="focus-scale">140%</output></div>
+              <div class="range-heading"><label for="focus-scale">Hold-to-enlarge focus</label><output id="focus-scale-value" for="focus-scale">140%</output></div>
               <input id="focus-scale" type="range" min="110" max="180" step="5" value="140" />
             </div>
-            <p class="shortcut"><kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>M</kbd> Hold to magnify the focused region. Payment and password fields are skipped.</p>
+            <p class="shortcut"><kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>M</kbd> Hold the keys to enlarge the focused region. Payment and password fields are skipped.</p>
           </fieldset>
 
           <p id="form-error" class="error" role="alert" hidden></p>
@@ -104,15 +104,15 @@
           <summary>Move profiles to another device</summary>
           <p>Profiles stay on this device. Export a backup, or import one you trust.</p>
           <div class="backup-actions">
-            <button id="export-profiles" class="button secondary" type="button">Export JSON</button>
-            <label class="button secondary file-button">Import JSON<input id="import-profiles" type="file" accept="application/json,.json" /></label>
+            <button id="export-profiles" class="button secondary" type="button">Export backup</button>
+            <label class="button secondary file-button">Import backup<input id="import-profiles" type="file" accept="application/json,.json" /></label>
           </div>
         </details>
       </section>
     </main>
 
     <footer>
-      <p id="status" aria-live="polite">Settings never leave this browser.</p>
+      <p id="status" aria-live="polite">Profile controls ready.</p>
       <button id="undo-delete" class="undo" type="button" hidden>Undo delete</button>
     </footer>
     <script type="module" src="./main.ts"></script>

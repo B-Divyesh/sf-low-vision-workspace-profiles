@@ -1,16 +1,18 @@
 import { expect, test, chromium, type BrowserContext, type Page } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
 import { createServer, type Server } from 'node:http';
 import { mkdtempSync, readFileSync, readdirSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { resolve } from 'node:path';
+import type { WorkspaceProfile } from '../../shared/profiles';
 
 const extensionPath = resolve('dist/extension/chrome-mv3');
-const profile = {
+const profile: WorkspaceProfile = {
   id: 'maximum-reading',
   name: 'Maximum reading',
   textScale: 180,
   lineSpacing: 2,
-  contrast: 'site' as const,
+  contrast: 'site',
   cursorHalo: false,
   focusMagnification: 140,
   createdAt: 1,
@@ -28,8 +30,12 @@ let userDataDir = '';
 test.beforeAll(async () => {
   server = createServer((_request, response) => {
     response.writeHead(200, { 'content-type': 'text/html' });
-    response.end(`<!doctype html><html><body>
+    response.end(`<!doctype html><html><head><style>
+      body { background-color: rgb(239, 243, 246); color: rgb(33, 44, 55); }
+      #focus-region { width: min(400px, 80vw); }
+    </style></head><body>
       <main><p id="reading">Reading sample</p>
+      <p id="focus-region"><a id="reading-link" href="#details">Review report details</a> before the meeting.</p>
       <input id="plain" name="plain" value="ordinary input">
       <input id="password" type="password" value="secret">
       <input id="payment" name="payment" value="card data">
@@ -60,11 +66,11 @@ test.afterAll(async () => {
   if (userDataDir) rmSync(userDataDir, { recursive: true, force: true });
 });
 
-async function saveAssignedProfile(hostname = '127.0.0.1') {
+async function saveAssignedProfile(hostname = '127.0.0.1', overrides: Partial<WorkspaceProfile> = {}) {
   const worker = context.serviceWorkers()[0] ?? await context.waitForEvent('serviceworker');
   await worker.evaluate(({ value, host }) => chrome.storage.local.set({
     workspaceProfilesData: { version: 1, profiles: [value], assignments: { [host]: value.id } }
-  }), { value: profile, host: hostname });
+  }), { value: { ...profile, ...overrides }, host: hostname });
 }
 
 async function clearProfiles() {
@@ -75,16 +81,90 @@ async function clearProfiles() {
 test('@claim:sensitive-fields maximum profile scale never changes sensitive payment field styles', async () => {
   await page.goto(origin);
   const baseline = await fontSizes(page);
+  const baselineReading = await page.locator('#reading').evaluate((node) => ({
+    fontSize: Number.parseFloat(getComputedStyle(node).fontSize),
+    lineHeight: Number.parseFloat(getComputedStyle(node).lineHeight)
+  }));
 
   await saveAssignedProfile();
 
   await page.reload();
   await expect(page.locator('html')).toHaveAttribute('data-wp-active', 'true');
   const scaled = await fontSizes(page);
+  const scaledReading = await page.locator('#reading').evaluate((node) => ({
+    fontSize: Number.parseFloat(getComputedStyle(node).fontSize),
+    lineHeight: Number.parseFloat(getComputedStyle(node).lineHeight)
+  }));
 
   expect(Number.parseFloat(scaled.plain!)).toBeGreaterThan(Number.parseFloat(baseline.plain!));
+  expect(scaledReading.fontSize).toBeGreaterThan(baselineReading.fontSize);
+  expect(scaledReading.lineHeight / scaledReading.fontSize).toBeCloseTo(2, 1);
   for (const id of fieldIds) expect(scaled[id]!).toBe(baseline[id]!);
   for (const id of fieldIds) await expect(page.locator(`#${id}`)).toHaveAttribute('data-workspace-profiles-sensitive', '');
+});
+
+test('@claim:color-options applies every advertised color treatment', async () => {
+  const expected = {
+    site: { background: 'rgb(239, 243, 246)', color: 'rgb(33, 44, 55)' },
+    soft: { background: 'rgb(255, 249, 237)', color: 'rgb(24, 42, 53)' },
+    high: { background: 'rgb(0, 0, 0)', color: 'rgb(255, 255, 255)' },
+    night: { background: 'rgb(16, 28, 37)', color: 'rgb(255, 245, 226)' }
+  } satisfies Record<WorkspaceProfile['contrast'], { background: string; color: string }>;
+
+  for (const contrast of Object.keys(expected) as WorkspaceProfile['contrast'][]) {
+    await clearProfiles();
+    await saveAssignedProfile('127.0.0.1', { contrast });
+    await page.goto(origin);
+    await expect(page.locator('html')).toHaveAttribute('data-wp-contrast', contrast);
+    const colors = await page.locator('body').evaluate((node) => ({
+      background: getComputedStyle(node).backgroundColor,
+      color: getComputedStyle(node).color
+    }));
+    expect(colors).toEqual(expected[contrast]);
+  }
+});
+
+test('@claim:cursor-ring follows the pointer and keyboard focus', async () => {
+  await clearProfiles();
+  await saveAssignedProfile('127.0.0.1', { cursorHalo: true });
+  await page.goto(origin);
+  const ring = page.locator('#workspace-profiles-cursor-halo');
+  await expect(ring).toHaveAttribute('aria-hidden', 'true');
+
+  await page.mouse.move(120, 140);
+  await expect(ring).toHaveAttribute('data-visible', 'true');
+  await expect(ring).toHaveCSS('opacity', '1');
+  await expect(ring).toHaveCSS('left', '120px');
+  await expect(ring).toHaveCSS('top', '140px');
+
+  await page.keyboard.press('Tab');
+  await expect(page.locator('#reading-link')).toBeFocused();
+  const focusPosition = await ring.evaluate((node) => ({
+    x: getComputedStyle(node).getPropertyValue('--wp-halo-x'),
+    y: getComputedStyle(node).getPropertyValue('--wp-halo-y')
+  }));
+  expect(focusPosition.x).not.toBe('120px');
+  expect(focusPosition.y).not.toBe('140px');
+});
+
+test('@claim:hold-focus enlarges focus only while Alt Shift M is held', async () => {
+  await clearProfiles();
+  await saveAssignedProfile('127.0.0.1', { focusMagnification: 140 });
+  await page.goto(origin);
+  await page.locator('#reading-link').focus();
+  const region = page.locator('#focus-region');
+
+  await page.keyboard.down('Alt');
+  await page.keyboard.down('Shift');
+  await page.keyboard.down('m');
+  await expect(region).toHaveClass(/workspace-profiles-magnified/);
+  await expect.poll(() => region.evaluate((node) => getComputedStyle(node).transform)).not.toBe('none');
+
+  await page.keyboard.up('m');
+  await page.keyboard.up('Shift');
+  await page.keyboard.up('Alt');
+  await expect(region).not.toHaveClass(/workspace-profiles-magnified/);
+  await expect(region).toHaveCSS('transform', 'none');
 });
 
 async function fontSizes(target: Page): Promise<Record<string, string>> {
@@ -149,4 +229,22 @@ test('@claim:extension-privacy applies a profile without a remote request', asyn
   await page.waitForTimeout(250);
   expect(requested.length).toBeGreaterThan(0);
   expect(requested.every((url) => new URL(url).origin === origin)).toBe(true);
+});
+
+test('packaged popup has landmarks, keyboard focus, and no axe violations', async () => {
+  const worker = context.serviceWorkers()[0] ?? await context.waitForEvent('serviceworker');
+  const extensionId = new URL(worker.url()).host;
+  const popup = await context.newPage();
+  const errors: string[] = [];
+  popup.on('console', (message) => { if (message.type() === 'error') errors.push(message.text()); });
+  popup.on('pageerror', (error) => errors.push(error.message));
+  await popup.goto(`chrome-extension://${extensionId}/popup.html`);
+  await expect(popup.locator('html')).toHaveAttribute('lang', 'en');
+  await expect(popup.locator('main')).toHaveCount(1);
+  await expect(popup.locator('h1')).toHaveCount(1);
+  await popup.keyboard.press('Tab');
+  await expect(popup.getByRole('link', { name: 'Skip to controls' })).toBeFocused();
+  expect((await new AxeBuilder({ page: popup }).analyze()).violations).toEqual([]);
+  expect(errors).toEqual([]);
+  await popup.close();
 });

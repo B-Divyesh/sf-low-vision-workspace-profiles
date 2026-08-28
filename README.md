@@ -8,7 +8,7 @@ A profile controls text size, line spacing, color, the cursor ring, and hold-to-
 
 Open [the sample-data demo](https://low-vision-workspace-profiles.sociobot.in/demo/). It starts with a `Quarterly reports` profile assigned to `reports.example`.
 
-Change or pause the sample profile and export it as JSON. **Reset demo** removes the `demo:workspace-profiles:reports-example` key. The demo uses this separate browser-storage key. See [`.factory/demo.md`](.factory/demo.md).
+Change or pause the sample profile. Export the sample profile as a backup file. **Reset demo** removes the `demo:workspace-profiles:reports-example` key. The demo uses this separate browser-storage key. See [`.factory/demo.md`](.factory/demo.md).
 
 ## Install and run locally
 
@@ -32,7 +32,7 @@ To test the extension, open `chrome://extensions` and enable Developer mode. Cho
 
 ## Verification
 
-The claim registry is [`.factory/claims.json`](.factory/claims.json). Each entry names its automated test. The browser test checks that a 180% profile does not resize password or payment fields.
+The claim registry is [`.factory/claims.json`](.factory/claims.json). Each entry names its automated test. Packaged-extension tests cover every reading control and sensitive-field exclusion.
 
 Before release, serve `dist/site`. Run the accessibility checks. Test keyboard navigation at 200% browser zoom.
 

@@ -2,7 +2,7 @@
 
 ## Direction
 
-**Art-deco transit poster for a calmer route through work.** Workspace Profiles treats every site as a stop on a familiar line: profiles are named routes, the active domain is the station, and the focus lens is a precise pool of light. The geometry is optimistic and architectural rather than nostalgic decoration. Strong rails, stepped corners, circular station markers, and compact wayfinding copy make the product feel dependable to someone who needs to find controls quickly.
+**Art-deco transit poster for a calmer route through work.** Workspace Profiles uses a familiar transit line as visual structure for saved profiles and assigned sites. The geometry is optimistic and architectural rather than nostalgic decoration. Strong rails, stepped corners, circular station markers, and compact wayfinding labels make the product feel dependable to someone who needs to find controls quickly. Public instructions always use the literal words **profile** and **site**; the transit idea stays decorative.
 
 The extension UI is deliberately quieter than the landing page. It keeps the same wayfinding language but prioritizes large controls and immediate status. Decoration appears only where it explains a route, profile, or focused region.
 

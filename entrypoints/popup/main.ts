@@ -124,13 +124,13 @@ function updateSiteState() {
 }
 
 $('#create-first').addEventListener('click', () => {
-  const profile = createProfile(`${siteLabel(hostname)} route`);
+  const profile = createProfile(`${siteLabel(hostname)} profile`);
   openEditor(profile.id, profile);
   nameInput.focus();
 });
 
 $('#new-profile').addEventListener('click', () => {
-  const profile = createProfile('New work route');
+  const profile = createProfile('New work profile');
   openEditor(profile.id, profile);
   nameInput.select();
 });

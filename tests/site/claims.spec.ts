@@ -24,7 +24,7 @@ test('@claim:reading-controls applies the stated text and spacing ranges', async
   expect(parseFloat(computed.size)).toBeGreaterThanOrEqual(28); expect(parseFloat(computed.line)).toBeGreaterThan(parseFloat(computed.size));
   await page.getByRole('button', { name: 'Share report' }).click();
   await expect(page.locator('#sample-action-status')).toHaveText('Sample report shared with your workspace.');
-  await page.getByRole('button', { name: 'More actions' }).click();
+  await page.getByRole('button', { name: 'Show report actions' }).click();
   await expect(page.getByRole('button', { name: 'Copy summary' })).toBeVisible();
   await page.getByRole('button', { name: 'Copy summary' }).click();
   await expect(page.locator('#copy-status')).toHaveText('Sample summary copied.');
@@ -72,18 +72,24 @@ test('@claim:offline-demo reloads the installed sample while offline', async ({ 
 });
 
 test('routes, metadata, mobile first screen, keyboard, and accessibility', async ({ page }) => {
-  for (const route of ['/', '/demo/', '/privacy/', '/terms/']) {
-    await page.goto(route); expect((await page.title()).length).toBeGreaterThan(5); await expect(page.locator('main')).toHaveCount(1); await expect(page.locator('h1')).toHaveCount(1);
-    await expect(page.locator('link[rel="canonical"]')).toHaveCount(1); await expect(page.locator('meta[property="og:image"]')).toHaveCount(1); await expect(page.locator('link[rel="apple-touch-icon"]')).toHaveCount(1);
+  const consoleErrors: string[] = []; page.on('console', (message) => { if (message.type() === 'error') consoleErrors.push(message.text()); }); page.on('pageerror', (error) => consoleErrors.push(error.message));
+  const routes = { '/': 'Workspace Profiles — save reading settings per site', '/demo/': 'Demo — Workspace Profiles', '/privacy/': 'Privacy — Workspace Profiles', '/terms/': 'Terms — Workspace Profiles' };
+  for (const [route, title] of Object.entries(routes)) {
+    await page.goto(route); expect(await page.title()).toBe(title); await expect(page.locator('main')).toHaveCount(1); await expect(page.locator('h1')).toHaveCount(1);
+    await expect(page.locator('meta[name="description"]')).toHaveCount(1); await expect(page.locator('link[rel="canonical"]')).toHaveCount(1); await expect(page.locator('meta[property="og:title"]')).toHaveCount(1); await expect(page.locator('meta[property="og:image"]')).toHaveCount(1); await expect(page.locator('meta[name="twitter:card"]')).toHaveCount(1); await expect(page.locator('link[rel="apple-touch-icon"]')).toHaveCount(1); await expect(page.locator('#route-status[aria-live="polite"]')).toHaveCount(1);
+    await expect(page.locator('header nav').getByRole('link', { name: 'Demo' })).toHaveCount(1); await expect(page.locator('footer').getByRole('link', { name: 'Privacy' })).toHaveCount(1); await expect(page.locator('footer').getByRole('link', { name: 'Terms' })).toHaveCount(1); await expect(page.locator('footer')).toContainText('Built by Param Factory'); await expect(page.locator('footer')).toContainText('Version 1.0.1');
     const results = await new AxeBuilder({ page }).analyze(); expect(results.violations).toEqual([]);
     await page.emulateMedia({ colorScheme: 'dark', reducedMotion: 'reduce' }); const darkResults = await new AxeBuilder({ page }).analyze(); expect(darkResults.violations).toEqual([]); await page.emulateMedia({ colorScheme: 'light' });
   }
-  await page.setViewportSize({ width: 390, height: 844 }); await page.goto('/');
-  await expect(page.getByRole('heading', { level: 1 })).toBeInViewport(); await expect(page.getByRole('link', { name: 'Try it with sample data' }).first()).toBeInViewport(); await expect(page.getByRole('link', { name: 'Download the extension' }).first()).toBeVisible();
+  await page.setViewportSize({ width: 390, height: 844 }); await page.goto('/'); expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390);
+  await expect(page.getByRole('heading', { level: 1 })).toBeInViewport(); await expect(page.getByRole('link', { name: 'Try it with sample data' }).first()).toBeInViewport(); await expect(page.getByRole('link', { name: 'Download the extension' }).first()).toBeInViewport(); await expect(page.locator('.action-note')).toBeInViewport(); await expect(page.locator('.plain-facts')).toBeInViewport();
   await page.setViewportSize({ width: 1440, height: 900 }); await page.goto('/');
   await expect(page.getByRole('heading', { level: 1 })).toBeInViewport(); await expect(page.locator('.hero-lede')).toBeInViewport();
   await expect(page.getByRole('link', { name: 'Try it with sample data' }).first()).toBeInViewport(); await expect(page.locator('.action-note')).toBeInViewport(); await expect(page.locator('.plain-facts')).toBeInViewport();
   await page.keyboard.press('Tab'); await expect(page.getByRole('link', { name: 'Skip to main content' })).toBeFocused();
-  await page.getByRole('link', { name: 'Demo' }).click(); await expect(page.getByRole('heading', { level: 1 })).toBeFocused(); await page.goBack(); await expect(page.getByRole('link', { name: 'Demo' })).toBeFocused();
+  await page.getByRole('link', { name: 'Demo' }).click(); await expect(page.getByRole('heading', { level: 1 })).toBeFocused(); await expect(page.locator('#route-status')).toHaveText('Try a reading profile on a sample report');
+  await page.goBack(); await expect(page.getByRole('link', { name: 'Demo' })).toBeFocused(); await expect(page.locator('#route-status')).toHaveText('Save readable settings for each work site');
+  expect(consoleErrors).toEqual([]);
   const response = await page.goto('/not-a-real-page'); expect(response?.status()).toBe(404);
+  await page.goto('/404.html'); expect(await page.title()).toBe('404 — Workspace Profiles'); await expect(page.locator('main')).toHaveCount(1); await expect(page.locator('h1')).toHaveText('This page is not on the map'); await expect(page.locator('meta[property="og:title"]')).toHaveAttribute('content', '404 — Workspace Profiles'); await expect(page.locator('meta[property="og:image"]')).toHaveCount(1); await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute('content', 'summary_large_image'); expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
 });

@@ -33,7 +33,7 @@ export function clamp(value: unknown, min: number, max: number, fallback: number
   return Number.isFinite(numeric) ? Math.min(max, Math.max(min, numeric)) : fallback;
 }
 
-export function createProfile(name = 'My work route', now = Date.now()): WorkspaceProfile {
+export function createProfile(name = 'My work profile', now = Date.now()): WorkspaceProfile {
   return {
     id: globalThis.crypto?.randomUUID?.() ?? `profile-${now}-${Math.random().toString(36).slice(2)}`,
     name,
