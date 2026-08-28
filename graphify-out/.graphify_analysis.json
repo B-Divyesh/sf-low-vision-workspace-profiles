@@ -152,24 +152,23 @@
       "scripts_build_run"
     ],
     "9": [
-      "promises",
-      "tests_site_claims_spec"
-    ],
-    "10": [
       "site_public_sw",
       "site_public_sw_shell"
     ],
-    "11": [
+    "10": [
       "entrypoints_background"
     ],
-    "12": [
+    "11": [
       "playwright_config"
     ],
-    "13": [
+    "12": [
       "playwright_site_config"
     ],
-    "14": [
+    "13": [
       "site_vite_config"
+    ],
+    "14": [
+      "tests_site_claims_spec"
     ],
     "15": [
       "vitest_config"
