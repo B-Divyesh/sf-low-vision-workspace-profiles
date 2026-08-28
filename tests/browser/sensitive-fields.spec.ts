@@ -60,7 +60,7 @@ test.afterAll(async () => {
   if (userDataDir) rmSync(userDataDir, { recursive: true, force: true });
 });
 
-test('maximum profile scale never changes sensitive payment field styles', async () => {
+test('@claim:sensitive-fields maximum profile scale never changes sensitive payment field styles', async () => {
   await page.goto(origin);
   const baseline = await fontSizes(page);
 
@@ -85,3 +85,12 @@ test('maximum profile scale never changes sensitive payment field styles', async
 async function fontSizes(target: Page): Promise<Record<string, string>> {
   return target.evaluate((ids) => Object.fromEntries(ids.map((id) => [id, getComputedStyle(document.querySelector(`#${id}`)!).fontSize])), ['plain', ...fieldIds]);
 }
+
+test('@claim:extension-privacy applies a profile without a remote request', async () => {
+  const requested: string[] = [];
+  page.on('request', (request) => requested.push(request.url()));
+  await page.goto(origin);
+  await page.waitForTimeout(250);
+  expect(requested.length).toBeGreaterThan(0);
+  expect(requested.every((url) => new URL(url).origin === origin)).toBe(true);
+});

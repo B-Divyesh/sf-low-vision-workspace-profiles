@@ -1,42 +1,49 @@
 # Workspace Profiles
 
-Workspace Profiles is a local-first Chromium extension for knowledge workers with low vision. It saves a named reading profile per domain so text can grow without applying the same zoom to navigation, controls, and dense tables.
+Workspace Profiles is a Chromium extension for people with low vision. It saves a reading profile for each site. Text can grow without enlarging every control or table.
 
-Each profile independently controls text scale, line spacing, contrast treatment, a cursor/focus halo, and temporary focused-region magnification (`Alt` + `Shift` + `M`). Password and payment fields are excluded from both persistent styling and magnification. Profiles, assignments, and backups stay on the device.
+A profile controls text size, line spacing, color, the cursor ring, and hold-to-enlarge focus. Password and common payment fields keep their original styling.
 
-The repository also contains the static product site at [low-vision-workspace-profiles.sociobot.in](https://low-vision-workspace-profiles.sociobot.in). All core accessibility features are free. The optional one-time Supporter Pass unlocks cosmetic extras only.
+## Try the demo
 
-## Run locally
+Open [the sample-data demo](https://low-vision-workspace-profiles.sociobot.in/demo/). It starts with a `Quarterly reports` profile assigned to `reports.example`.
+
+Change or pause the sample profile and export it as JSON. **Reset demo** removes the `demo:workspace-profiles:reports-example` key. Demo code does not read extension data. See [`.factory/demo.md`](.factory/demo.md).
+
+## Install and run locally
 
 Requirements: Node.js 20+ and npm.
 
 ```sh
-npm install
-npm run dev          # WXT extension development
-npm run dev:site     # landing site at localhost:5173
+npm ci
+npm run dev
+npm run dev:site
 npm test
-npm run test:browser  # Chromium packaged-extension regression (Linux/Xvfb)
+npm run test:claims
+npm run test:site
+npm run test:browser
 npm run typecheck
-npm run lint
 npm run build
 ```
 
-`npm run build` is the reproducible factory build command. It creates:
+`npm run build` creates the unpacked extension, extension ZIP, and static site in `dist/`.
 
-- `dist/extension/chrome-mv3/` — unpacked MV3 extension
-- `dist/site/index.html` — static deployment root
-- `dist/site/downloads/workspace-profiles-chrome.zip` — installable package linked from the site
+To test the extension, open `chrome://extensions` and enable Developer mode. Choose **Load unpacked** and select `dist/extension/chrome-mv3`. Open an HTTP or HTTPS page, select the toolbar icon, and create a profile.
 
-To test the extension, open `chrome://extensions`, enable Developer mode, choose **Load unpacked**, and select `dist/extension/chrome-mv3`. Open a normal `http` or `https` page, select the toolbar icon, and create a profile.
+## Verification
 
-## Test and release checks
+The claim registry is [`.factory/claims.json`](.factory/claims.json). Each entry names its automated test. The browser test checks that a 180% profile does not resize password or payment fields.
 
-Unit tests validate untrusted import normalization, bounded settings, domain assignments, and defaults. The packaged-extension Chromium test validates that a maximum 180% profile never changes the computed font size of password and payment-related fields, including `payment`, `card`, `cc-*`, CVC/CVV, and card autocomplete fields. Before release, serve `dist/site`, run the accessibility smoke tests described in `.factory/handoff.md`, and test the unpacked extension with keyboard-only navigation at 200% browser zoom.
+Before release, serve `dist/site`. Run the accessibility checks. Test keyboard navigation at 200% browser zoom.
 
-## Privacy and security
+## Privacy
 
-There are no analytics, remote profile services, third-party runtime scripts, or CDN fonts. The extension requests site access solely to apply assigned profiles. See [`site/privacy/index.html`](site/privacy/index.html) and the public `/privacy/` page for details.
+Profiles and site assignments use Chromium extension storage. The extension includes no analytics or third-party runtime scripts. Read the [privacy notice](site/privacy/index.html).
+
+## Deployment
+
+Deploy `dist/site` as a static site. The repository does not manage DNS, billing, or infrastructure.
 
 ## License
 
-MIT. The bundled Atkinson Hyperlegible font is covered by the SIL Open Font License 1.1; see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+MIT. Atkinson Hyperlegible uses the SIL Open Font License 1.1; see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).

@@ -1,5 +1,5 @@
-const CACHE = 'workspace-profiles-v1';
-const SHELL = ['/', '/privacy/', '/terms/', '/assets/AtkinsonHyperlegible-Regular.woff2', '/favicon.svg'];
+const CACHE = 'workspace-profiles-v2';
+const SHELL = ['/', '/demo/', '/privacy/', '/terms/', '/404.html', '/assets/AtkinsonHyperlegible-Regular.woff2', '/favicon.svg'];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(SHELL)));
@@ -16,5 +16,5 @@ self.addEventListener('fetch', (event) => {
   event.respondWith(fetch(event.request).then((response) => {
     if (response.ok && !event.request.url.includes('/downloads/')) caches.open(CACHE).then((cache) => cache.put(event.request, response.clone()));
     return response;
-  }).catch(() => caches.match(event.request).then((cached) => cached || caches.match('/'))));
+  }).catch(() => caches.match(event.request).then((cached) => cached || (event.request.mode === 'navigate' ? caches.match('/404.html') : undefined))));
 });
