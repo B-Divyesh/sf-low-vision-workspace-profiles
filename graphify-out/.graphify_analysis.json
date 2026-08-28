@@ -135,6 +135,15 @@
       "site_route_focus_restorefocus"
     ],
     "7": [
+      "tests_browser_sensitive_fields_spec",
+      "tests_browser_sensitive_fields_spec_clearprofiles",
+      "tests_browser_sensitive_fields_spec_extensionpath",
+      "tests_browser_sensitive_fields_spec_fieldids",
+      "tests_browser_sensitive_fields_spec_fontsizes",
+      "tests_browser_sensitive_fields_spec_profile",
+      "tests_browser_sensitive_fields_spec_saveassignedprofile"
+    ],
+    "8": [
       "scripts_build",
       "scripts_build_dist",
       "scripts_build_downloads",
@@ -142,31 +151,25 @@
       "scripts_build_root",
       "scripts_build_run"
     ],
-    "8": [
-      "tests_browser_sensitive_fields_spec",
-      "tests_browser_sensitive_fields_spec_extensionpath",
-      "tests_browser_sensitive_fields_spec_fieldids",
-      "tests_browser_sensitive_fields_spec_fontsizes",
-      "tests_browser_sensitive_fields_spec_profile"
-    ],
     "9": [
+      "promises",
+      "tests_site_claims_spec"
+    ],
+    "10": [
       "site_public_sw",
       "site_public_sw_shell"
     ],
-    "10": [
+    "11": [
       "entrypoints_background"
     ],
-    "11": [
+    "12": [
       "playwright_config"
     ],
-    "12": [
+    "13": [
       "playwright_site_config"
     ],
-    "13": [
-      "site_vite_config"
-    ],
     "14": [
-      "tests_site_claims_spec"
+      "site_vite_config"
     ],
     "15": [
       "vitest_config"
@@ -183,8 +186,8 @@
     "4": 0.13333333333333333,
     "5": 0.23076923076923078,
     "6": 0.16666666666666666,
-    "7": 0.3333333333333333,
-    "8": 0.4,
+    "7": 0.2857142857142857,
+    "8": 0.3333333333333333,
     "9": 1.0,
     "10": 1.0,
     "11": 1.0,

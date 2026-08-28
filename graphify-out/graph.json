@@ -481,11 +481,44 @@
       "source_location": "L4"
     },
     {
+      "id": "tests_browser_sensitive_fields_spec_clearprofiles",
+      "label": "clearProfiles()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 7,
+      "file_type": "code",
+      "norm_label": "clearprofiles()",
+      "source_file": "tests/browser/sensitive-fields.spec.ts",
+      "source_location": "L70"
+    },
+    {
+      "id": "tests_browser_sensitive_fields_spec_fontsizes",
+      "label": "fontSizes()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 7,
+      "file_type": "code",
+      "norm_label": "fontsizes()",
+      "source_file": "tests/browser/sensitive-fields.spec.ts",
+      "source_location": "L90"
+    },
+    {
+      "id": "tests_browser_sensitive_fields_spec_saveassignedprofile",
+      "label": "saveAssignedProfile()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 7,
+      "file_type": "code",
+      "norm_label": "saveassignedprofile()",
+      "source_file": "tests/browser/sensitive-fields.spec.ts",
+      "source_location": "L63"
+    },
+    {
       "id": "scripts_build_findzip",
       "label": "findZip()",
       "_callable": true,
       "_origin": "ast",
-      "community": 7,
+      "community": 8,
       "file_type": "code",
       "norm_label": "findzip()",
       "source_file": "scripts/build.mjs",
@@ -496,22 +529,11 @@
       "label": "run()",
       "_callable": true,
       "_origin": "ast",
-      "community": 7,
+      "community": 8,
       "file_type": "code",
       "norm_label": "run()",
       "source_file": "scripts/build.mjs",
       "source_location": "L9"
-    },
-    {
-      "id": "tests_browser_sensitive_fields_spec_fontsizes",
-      "label": "fontSizes()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "file_type": "code",
-      "norm_label": "fontsizes()",
-      "source_file": "tests/browser/sensitive-fields.spec.ts",
-      "source_location": "L85"
     },
     {
       "id": "entrypoints_popup_main",
@@ -654,10 +676,30 @@
       "source_location": "L1"
     },
     {
+      "id": "site_public_sw",
+      "label": "sw.js",
+      "_origin": "ast",
+      "community": 10,
+      "file_type": "code",
+      "norm_label": "sw.js",
+      "source_file": "site/public/sw.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "site_public_sw_shell",
+      "label": "SHELL",
+      "_origin": "ast",
+      "community": 10,
+      "file_type": "code",
+      "norm_label": "shell",
+      "source_file": "site/public/sw.js",
+      "source_location": "L2"
+    },
+    {
       "id": "entrypoints_background",
       "label": "background.ts",
       "_origin": "ast",
-      "community": 10,
+      "community": 11,
       "file_type": "code",
       "norm_label": "background.ts",
       "source_file": "entrypoints/background.ts",
@@ -667,7 +709,7 @@
       "id": "playwright_config",
       "label": "playwright.config.ts",
       "_origin": "ast",
-      "community": 11,
+      "community": 12,
       "file_type": "code",
       "norm_label": "playwright.config.ts",
       "source_file": "playwright.config.ts",
@@ -677,7 +719,7 @@
       "id": "playwright_site_config",
       "label": "playwright.site.config.ts",
       "_origin": "ast",
-      "community": 12,
+      "community": 13,
       "file_type": "code",
       "norm_label": "playwright.site.config.ts",
       "source_file": "playwright.site.config.ts",
@@ -687,20 +729,10 @@
       "id": "site_vite_config",
       "label": "vite.config.ts",
       "_origin": "ast",
-      "community": 13,
+      "community": 14,
       "file_type": "code",
       "norm_label": "vite.config.ts",
       "source_file": "site/vite.config.ts",
-      "source_location": "L1"
-    },
-    {
-      "id": "tests_site_claims_spec",
-      "label": "claims.spec.ts",
-      "_origin": "ast",
-      "community": 14,
-      "file_type": "code",
-      "norm_label": "claims.spec.ts",
-      "source_file": "tests/site/claims.spec.ts",
       "source_location": "L1"
     },
     {
@@ -1354,50 +1386,10 @@
       "source_location": "L10"
     },
     {
-      "id": "scripts_build",
-      "label": "build.mjs",
-      "_origin": "ast",
-      "community": 7,
-      "file_type": "code",
-      "norm_label": "build.mjs",
-      "source_file": "scripts/build.mjs",
-      "source_location": "L1"
-    },
-    {
-      "id": "scripts_build_dist",
-      "label": "dist",
-      "_origin": "ast",
-      "community": 7,
-      "file_type": "code",
-      "norm_label": "dist",
-      "source_file": "scripts/build.mjs",
-      "source_location": "L6"
-    },
-    {
-      "id": "scripts_build_downloads",
-      "label": "downloads",
-      "_origin": "ast",
-      "community": 7,
-      "file_type": "code",
-      "norm_label": "downloads",
-      "source_file": "scripts/build.mjs",
-      "source_location": "L31"
-    },
-    {
-      "id": "scripts_build_root",
-      "label": "root",
-      "_origin": "ast",
-      "community": 7,
-      "file_type": "code",
-      "norm_label": "root",
-      "source_file": "scripts/build.mjs",
-      "source_location": "L5"
-    },
-    {
       "id": "tests_browser_sensitive_fields_spec",
       "label": "sensitive-fields.spec.ts",
       "_origin": "ast",
-      "community": 8,
+      "community": 7,
       "file_type": "code",
       "norm_label": "sensitive-fields.spec.ts",
       "source_file": "tests/browser/sensitive-fields.spec.ts",
@@ -1407,7 +1399,7 @@
       "id": "tests_browser_sensitive_fields_spec_extensionpath",
       "label": "extensionPath",
       "_origin": "ast",
-      "community": 8,
+      "community": 7,
       "file_type": "code",
       "norm_label": "extensionpath",
       "source_file": "tests/browser/sensitive-fields.spec.ts",
@@ -1417,7 +1409,7 @@
       "id": "tests_browser_sensitive_fields_spec_fieldids",
       "label": "fieldIds",
       "_origin": "ast",
-      "community": 8,
+      "community": 7,
       "file_type": "code",
       "norm_label": "fieldids",
       "source_file": "tests/browser/sensitive-fields.spec.ts",
@@ -1427,31 +1419,71 @@
       "id": "tests_browser_sensitive_fields_spec_profile",
       "label": "profile",
       "_origin": "ast",
-      "community": 8,
+      "community": 7,
       "file_type": "code",
       "norm_label": "profile",
       "source_file": "tests/browser/sensitive-fields.spec.ts",
       "source_location": "L8"
     },
     {
-      "id": "site_public_sw",
-      "label": "sw.js",
+      "id": "scripts_build",
+      "label": "build.mjs",
       "_origin": "ast",
-      "community": 9,
+      "community": 8,
       "file_type": "code",
-      "norm_label": "sw.js",
-      "source_file": "site/public/sw.js",
+      "norm_label": "build.mjs",
+      "source_file": "scripts/build.mjs",
       "source_location": "L1"
     },
     {
-      "id": "site_public_sw_shell",
-      "label": "SHELL",
+      "id": "scripts_build_dist",
+      "label": "dist",
+      "_origin": "ast",
+      "community": 8,
+      "file_type": "code",
+      "norm_label": "dist",
+      "source_file": "scripts/build.mjs",
+      "source_location": "L6"
+    },
+    {
+      "id": "scripts_build_downloads",
+      "label": "downloads",
+      "_origin": "ast",
+      "community": 8,
+      "file_type": "code",
+      "norm_label": "downloads",
+      "source_file": "scripts/build.mjs",
+      "source_location": "L31"
+    },
+    {
+      "id": "scripts_build_root",
+      "label": "root",
+      "_origin": "ast",
+      "community": 8,
+      "file_type": "code",
+      "norm_label": "root",
+      "source_file": "scripts/build.mjs",
+      "source_location": "L5"
+    },
+    {
+      "id": "promises",
+      "label": "node:fs/promises",
+      "_origin": "ast",
+      "community": 9,
+      "confidence": "EXTRACTED",
+      "file_type": "code",
+      "norm_label": "node:fs/promises",
+      "source_file": "node:fs/promises"
+    },
+    {
+      "id": "tests_site_claims_spec",
+      "label": "claims.spec.ts",
       "_origin": "ast",
       "community": 9,
       "file_type": "code",
-      "norm_label": "shell",
-      "source_file": "site/public/sw.js",
-      "source_location": "L2"
+      "norm_label": "claims.spec.ts",
+      "source_file": "tests/site/claims.spec.ts",
+      "source_location": "L1"
     }
   ],
   "links": [
@@ -3358,6 +3390,17 @@
     },
     {
       "source": "tests_browser_sensitive_fields_spec",
+      "target": "tests_browser_sensitive_fields_spec_saveassignedprofile",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "tests/browser/sensitive-fields.spec.ts",
+      "source_location": "L63",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_browser_sensitive_fields_spec",
       "target": "tests_browser_sensitive_fields_spec_extensionpath",
       "relation": "contains",
       "_origin": "ast",
@@ -3365,6 +3408,17 @@
       "confidence_score": 1.0,
       "source_file": "tests/browser/sensitive-fields.spec.ts",
       "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_browser_sensitive_fields_spec",
+      "target": "tests_browser_sensitive_fields_spec_clearprofiles",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "tests/browser/sensitive-fields.spec.ts",
+      "source_location": "L70",
       "weight": 1.0
     },
     {
@@ -3386,7 +3440,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "tests/browser/sensitive-fields.spec.ts",
-      "source_location": "L85",
+      "source_location": "L90",
       "weight": 1.0
     },
     {
@@ -3465,6 +3519,15 @@
       "source_file": "tsconfig.json",
       "source_location": "L7",
       "weight": 1.0
+    },
+    {
+      "source": "tests_site_claims_spec",
+      "target": "promises",
+      "relation": "dynamic_import",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "tests/site/claims.spec.ts"
     },
     {
       "source": "entrypoints_content_main",
@@ -3564,5 +3627,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "9fcca39a9c4a2e98c0bc4ca7b0eabbf8bd700dac"
+  "built_at_commit": "38830205f323fedbc6b3b4f0db60aebb45d1e6de"
 }
