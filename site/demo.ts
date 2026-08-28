@@ -1,4 +1,5 @@
 import './style.css';
+import './route-focus';
 
 type DemoState = { textScale: number; lineHeight: number; color: string; active: boolean };
 const key = 'demo:workspace-profiles:reports-example';

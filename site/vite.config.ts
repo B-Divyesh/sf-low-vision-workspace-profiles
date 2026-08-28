@@ -13,6 +13,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         home: resolve(import.meta.dirname, 'index.html'),
+        routeFocus: resolve(import.meta.dirname, 'route-focus.ts'),
         demo: resolve(import.meta.dirname, 'demo/index.html'),
         privacy: resolve(import.meta.dirname, 'privacy/index.html'),
         terms: resolve(import.meta.dirname, 'terms/index.html'),

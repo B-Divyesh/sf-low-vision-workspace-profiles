@@ -76,5 +76,6 @@ test('routes, metadata, mobile first screen, keyboard, and accessibility', async
   await page.setViewportSize({ width: 390, height: 844 }); await page.goto('/');
   await expect(page.getByRole('heading', { level: 1 })).toBeInViewport(); await expect(page.getByRole('link', { name: 'Try it with sample data' }).first()).toBeInViewport(); await expect(page.getByRole('link', { name: 'Download the extension' }).first()).toBeVisible();
   await page.keyboard.press('Tab'); await expect(page.getByRole('link', { name: 'Skip to main content' })).toBeFocused();
+  await page.getByRole('link', { name: 'Demo' }).click(); await expect(page.getByRole('heading', { level: 1 })).toBeFocused(); await page.goBack(); await expect(page.getByRole('link', { name: 'Demo' })).toBeFocused();
   const response = await page.goto('/not-a-real-page'); expect(response?.status()).toBe(404);
 });
