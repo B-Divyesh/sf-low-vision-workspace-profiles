@@ -10,11 +10,15 @@
     "build:extension": "wxt build",
     "build:site": "vite build --config site/vite.config.ts",
     "test": "vitest run",
+    "test:browser": "npm run build:extension && xvfb-run -a playwright test",
     "test:watch": "vitest",
+    "lint": "tsc --noEmit",
     "typecheck": "wxt prepare && tsc --noEmit",
     "postinstall": "wxt prepare"
   },
   "devDependencies": {
+    "@axe-core/playwright": "4.11.0",
+    "@playwright/test": "1.58.2",
     "@types/chrome": "^0.0.322",
     "typescript": "^5.8.3",
     "vite": "^6.3.5",

@@ -2,7 +2,7 @@
 
 Workspace Profiles is a local-first Chromium extension for knowledge workers with low vision. It saves a named reading profile per domain so text can grow without applying the same zoom to navigation, controls, and dense tables.
 
-Each profile independently controls text scale, line spacing, contrast treatment, a cursor/focus halo, and temporary focused-region magnification (`Alt` + `Shift` + `M`). Password and common payment fields are excluded from magnification. Profiles, assignments, and backups stay on the device.
+Each profile independently controls text scale, line spacing, contrast treatment, a cursor/focus halo, and temporary focused-region magnification (`Alt` + `Shift` + `M`). Password and payment fields are excluded from both persistent styling and magnification. Profiles, assignments, and backups stay on the device.
 
 The repository also contains the static product site at [low-vision-workspace-profiles.sociobot.in](https://low-vision-workspace-profiles.sociobot.in). All core accessibility features are free. The optional one-time Supporter Pass unlocks cosmetic extras only.
 
@@ -15,7 +15,9 @@ npm install
 npm run dev          # WXT extension development
 npm run dev:site     # landing site at localhost:5173
 npm test
+npm run test:browser  # Chromium packaged-extension regression (Linux/Xvfb)
 npm run typecheck
+npm run lint
 npm run build
 ```
 
@@ -29,7 +31,7 @@ To test the extension, open `chrome://extensions`, enable Developer mode, choose
 
 ## Test and release checks
 
-Unit tests validate untrusted import normalization, bounded settings, domain assignments, and defaults. Before release, serve `dist/site`, run the accessibility smoke tests described in `.factory/handoff.md`, and test the unpacked extension with keyboard-only navigation at 200% browser zoom.
+Unit tests validate untrusted import normalization, bounded settings, domain assignments, and defaults. The packaged-extension Chromium test validates that a maximum 180% profile never changes the computed font size of password and payment-related fields, including `payment`, `card`, `cc-*`, CVC/CVV, and card autocomplete fields. Before release, serve `dist/site`, run the accessibility smoke tests described in `.factory/handoff.md`, and test the unpacked extension with keyboard-only navigation at 200% browser zoom.
 
 ## Privacy and security
 

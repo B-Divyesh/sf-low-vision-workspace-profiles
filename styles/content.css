@@ -3,7 +3,7 @@ html[data-wp-active='true'] :where(p, li, dd, dt, blockquote, article > div, [ro
   line-height: var(--wp-line-height, 1.55) !important;
 }
 
-html[data-wp-active='true'] :where(h1, h2, h3, h4, h5, h6, label, button, input:not([type='password']):not([autocomplete*='cc-']):not([name*='card' i]):not([id*='card' i]):not([name*='cvc' i]):not([id*='cvc' i]):not([name*='cvv' i]):not([id*='cvv' i]), textarea, select, td, th, [role='cell'], [role='columnheader'], [role='button']) {
+html[data-wp-active='true'] :where(h1, h2, h3, h4, h5, h6, label, button, input:not([data-workspace-profiles-sensitive]), textarea:not([data-workspace-profiles-sensitive]), select, td, th, [role='cell'], [role='columnheader'], [role='button']) {
   font-size: var(--wp-ui-scale, 100%) !important;
   line-height: max(1.25, var(--wp-line-height, 1.55)) !important;
 }

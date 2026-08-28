@@ -7,11 +7,15 @@ let halo: HTMLDivElement | null = null;
 let magnified: HTMLElement | null = null;
 let magnifyTimer = 0;
 let previousStyle: Record<string, string> | null = null;
+const sensitiveFieldSelector = 'input, textarea, [contenteditable="true"]';
+const sensitiveFieldMarker = 'data-workspace-profiles-sensitive';
 
 export default defineContentScript({
   matches: ['<all_urls>'],
   cssInjectionMode: 'manifest',
   async main() {
+    observeSensitiveFields();
+    markSensitiveFields();
     await refreshProfile();
     browser.storage.onChanged.addListener((changes, area) => {
       if (area === 'local' && changes[STORAGE_KEY]) void refreshProfile();
@@ -90,11 +94,51 @@ function onKeyUp(event: KeyboardEvent) {
   if (event.code === 'KeyM') deactivateMagnifier();
 }
 
+function sensitiveFieldFor(element: HTMLElement): HTMLElement | null {
+  return element.closest<HTMLElement>(sensitiveFieldSelector);
+}
+
 function isSensitive(element: HTMLElement): boolean {
-  const field = element.closest('input, textarea, [contenteditable="true"]');
+  const field = sensitiveFieldFor(element);
   if (!field) return false;
   const autocomplete = field.getAttribute('autocomplete')?.toLowerCase() ?? '';
   return field.matches('input[type="password"]') || /cc-|card|payment|cvc|cvv/.test(`${autocomplete} ${field.id} ${field.getAttribute('name') ?? ''}`.toLowerCase());
+}
+
+/**
+ * The stylesheet cannot run our field policy itself. Marking fields lets its
+ * selector share this exact policy with the temporary magnifier instead of
+ * maintaining a second, inevitably incomplete, list of payment names.
+ */
+function markSensitiveField(field: HTMLElement) {
+  field.toggleAttribute(sensitiveFieldMarker, isSensitive(field));
+}
+
+function markSensitiveFields(scope: ParentNode = document) {
+  scope.querySelectorAll<HTMLElement>(sensitiveFieldSelector).forEach(markSensitiveField);
+}
+
+function observeSensitiveFields() {
+  const observer = new MutationObserver((records) => {
+    for (const record of records) {
+      if (record.type === 'attributes' && record.target instanceof HTMLElement) {
+        markSensitiveField(record.target);
+      }
+      if (record.type === 'childList') {
+        record.addedNodes.forEach((node) => {
+          if (!(node instanceof HTMLElement)) return;
+          if (node.matches(sensitiveFieldSelector)) markSensitiveField(node);
+          markSensitiveFields(node);
+        });
+      }
+    }
+  });
+  observer.observe(document.documentElement, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    attributeFilter: ['autocomplete', 'contenteditable', 'id', 'name', 'type']
+  });
 }
 
 function findRegion(): HTMLElement | null {
