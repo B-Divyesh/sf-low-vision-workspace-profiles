@@ -27,6 +27,27 @@
       "shared_profiles_sitelabel"
     ],
     "1": [
+      "entrypoints_content",
+      "entrypoints_content_applyprofile",
+      "entrypoints_content_deactivatemagnifier",
+      "entrypoints_content_ensurehalo",
+      "entrypoints_content_findregion",
+      "entrypoints_content_issensitive",
+      "entrypoints_content_magnifyfocused",
+      "entrypoints_content_main",
+      "entrypoints_content_marksensitivefield",
+      "entrypoints_content_marksensitivefields",
+      "entrypoints_content_movehalo",
+      "entrypoints_content_movehalotofocus",
+      "entrypoints_content_observesensitivefields",
+      "entrypoints_content_onkeydown",
+      "entrypoints_content_onkeyup",
+      "entrypoints_content_refreshprofile",
+      "entrypoints_content_removehalo",
+      "entrypoints_content_sensitivefieldfor",
+      "shared_profiles_assignedprofile"
+    ],
+    "2": [
       "ref_dom",
       "ref_dom_iterable",
       "ref_entrypoints_ts",
@@ -46,23 +67,6 @@
       "tsconfig_extends",
       "tsconfig_include"
     ],
-    "2": [
-      "entrypoints_content",
-      "entrypoints_content_applyprofile",
-      "entrypoints_content_deactivatemagnifier",
-      "entrypoints_content_ensurehalo",
-      "entrypoints_content_findregion",
-      "entrypoints_content_issensitive",
-      "entrypoints_content_magnifyfocused",
-      "entrypoints_content_main",
-      "entrypoints_content_movehalo",
-      "entrypoints_content_movehalotofocus",
-      "entrypoints_content_onkeydown",
-      "entrypoints_content_onkeyup",
-      "entrypoints_content_refreshprofile",
-      "entrypoints_content_removehalo",
-      "shared_profiles_assignedprofile"
-    ],
     "3": [
       "package",
       "package_name",
@@ -73,14 +77,33 @@
       "package_scripts_build_site",
       "package_scripts_dev",
       "package_scripts_dev_site",
+      "package_scripts_lint",
       "package_scripts_postinstall",
       "package_scripts_test",
+      "package_scripts_test_browser",
       "package_scripts_test_watch",
       "package_scripts_typecheck",
       "package_type",
       "package_version"
     ],
     "4": [
+      "axe_core_playwright",
+      "package_devdependencies",
+      "package_devdependencies_axe_core_playwright",
+      "package_devdependencies_playwright_test",
+      "package_devdependencies_types_chrome",
+      "package_devdependencies_typescript",
+      "package_devdependencies_vite",
+      "package_devdependencies_vitest",
+      "package_devdependencies_wxt",
+      "playwright_test",
+      "types_chrome",
+      "typescript",
+      "vite",
+      "vitest",
+      "wxt"
+    ],
+    "5": [
       "entrypoints_popup_main_readform",
       "shared_profiles",
       "shared_profiles_clamp",
@@ -95,7 +118,7 @@
       "shared_profiles_workspaceprofile",
       "tests_profiles_test"
     ],
-    "5": [
+    "6": [
       "site_main",
       "site_main_cachedverdict",
       "site_main_extra",
@@ -109,19 +132,6 @@
       "site_main_verdict",
       "site_main_verify"
     ],
-    "6": [
-      "package_devdependencies",
-      "package_devdependencies_types_chrome",
-      "package_devdependencies_typescript",
-      "package_devdependencies_vite",
-      "package_devdependencies_vitest",
-      "package_devdependencies_wxt",
-      "types_chrome",
-      "typescript",
-      "vite",
-      "vitest",
-      "wxt"
-    ],
     "7": [
       "scripts_build",
       "scripts_build_dist",
@@ -131,47 +141,63 @@
       "scripts_build_run"
     ],
     "8": [
+      "tests_browser_sensitive_fields_spec",
+      "tests_browser_sensitive_fields_spec_extensionpath",
+      "tests_browser_sensitive_fields_spec_fieldids",
+      "tests_browser_sensitive_fields_spec_fontsizes",
+      "tests_browser_sensitive_fields_spec_profile"
+    ],
+    "9": [
       "site_public_sw",
       "site_public_sw_shell"
     ],
-    "9": [
+    "10": [
       "entrypoints_background"
     ],
-    "10": [
+    "11": [
+      "playwright_config"
+    ],
+    "12": [
       "site_vite_config"
     ],
-    "11": [
+    "13": [
+      "vitest_config"
+    ],
+    "14": [
       "wxt_config"
     ]
   },
   "cohesion": {
     "0": 0.13405797101449277,
-    "1": 0.1111111111111111,
-    "2": 0.2857142857142857,
-    "3": 0.13333333333333333,
-    "4": 0.23076923076923078,
-    "5": 0.19696969696969696,
-    "6": 0.18181818181818182,
+    "1": 0.23976608187134502,
+    "2": 0.1111111111111111,
+    "3": 0.11764705882352941,
+    "4": 0.13333333333333333,
+    "5": 0.23076923076923078,
+    "6": 0.19696969696969696,
     "7": 0.3333333333333333,
-    "8": 1.0,
+    "8": 0.4,
     "9": 1.0,
     "10": 1.0,
-    "11": 1.0
+    "11": 1.0,
+    "12": 1.0,
+    "13": 1.0,
+    "14": 1.0
   },
   "gods": [
     {
       "id": "package_scripts",
       "label": "scripts",
-      "degree": 10
-    },
-    {
-      "id": "entrypoints_popup_main_initialize",
-      "label": "initialize()",
-      "degree": 7
+      "degree": 12
     },
     {
       "id": "entrypoints_content_main",
       "label": "main()",
+      "degree": 9
+    },
+    {
+      "id": "entrypoints_popup_main_initialize",
+      "label": "initialize()",
       "degree": 7
     },
     {
@@ -200,13 +226,13 @@
       "degree": 5
     },
     {
-      "id": "entrypoints_content_applyprofile",
-      "label": "applyProfile()",
+      "id": "shared_profiles_createprofile",
+      "label": "createProfile()",
       "degree": 5
     },
     {
-      "id": "entrypoints_content_magnifyfocused",
-      "label": "magnifyFocused()",
+      "id": "shared_profiles_normalizeprofile",
+      "label": "normalizeProfile()",
       "degree": 5
     }
   ],
@@ -223,17 +249,6 @@
       "why": "connects across different repos/directories; bridges separate communities"
     },
     {
-      "source": "refreshProfile()",
-      "target": "parseWorkspaceData()",
-      "source_files": [
-        "entrypoints/content.ts",
-        "shared/profiles.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "connects across different repos/directories; bridges separate communities"
-    },
-    {
       "source": "readForm()",
       "target": "createProfile()",
       "source_files": [
@@ -243,6 +258,17 @@
       "confidence": "EXTRACTED",
       "relation": "calls",
       "why": "connects across different repos/directories; peripheral node `readForm()` unexpectedly reaches hub `createProfile()`"
+    },
+    {
+      "source": "refreshProfile()",
+      "target": "parseWorkspaceData()",
+      "source_files": [
+        "entrypoints/content.ts",
+        "shared/profiles.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "connects across different repos/directories; bridges separate communities"
     },
     {
       "source": "initialize()",
