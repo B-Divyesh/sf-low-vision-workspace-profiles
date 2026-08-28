@@ -1,1 +1,1 @@
-Save readable text, spacing, color, cursor, and focus settings for each work site.
+Save readable settings for each work site.
