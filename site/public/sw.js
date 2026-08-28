@@ -1,4 +1,4 @@
-const CACHE = 'workspace-profiles-v3';
+const CACHE = 'workspace-profiles-v4';
 const SHELL = ['/', '/demo/', '/privacy/', '/terms/', '/404.html', '/assets/AtkinsonHyperlegible-Regular.woff2', '/favicon.svg'];
 
 self.addEventListener('install', (event) => {

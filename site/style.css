@@ -259,6 +259,7 @@ kbd { padding: 2px 6px; border: 1px solid #79725d; border-bottom-width: 3px; col
   .profile-demo { color: var(--ink); }.demo-head { color: var(--cream); }
   .privacy-mark { background: var(--surface); }
   .button.primary, .route-label span, .hero-ticket, .demo-toggle span { color: #101c25; }
+  .button:not(.primary) { color: #101c25; }
   .demo-banner { color: #101c25; }
 }
 

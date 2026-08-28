@@ -79,7 +79,24 @@ test('routes, metadata, mobile first screen, keyboard, and accessibility', async
     await expect(page.locator('meta[name="description"]')).toHaveCount(1); await expect(page.locator('link[rel="canonical"]')).toHaveCount(1); await expect(page.locator('meta[property="og:title"]')).toHaveCount(1); await expect(page.locator('meta[property="og:image"]')).toHaveCount(1); await expect(page.locator('meta[name="twitter:card"]')).toHaveCount(1); await expect(page.locator('link[rel="apple-touch-icon"]')).toHaveCount(1); await expect(page.locator('#route-status[aria-live="polite"]')).toHaveCount(1);
     await expect(page.locator('header nav').getByRole('link', { name: 'Demo' })).toHaveCount(1); await expect(page.locator('footer').getByRole('link', { name: 'Privacy' })).toHaveCount(1); await expect(page.locator('footer').getByRole('link', { name: 'Terms' })).toHaveCount(1); await expect(page.locator('footer')).toContainText('Built by Param Factory'); await expect(page.locator('footer')).toContainText('Version 1.0.1');
     const results = await new AxeBuilder({ page }).analyze(); expect(results.violations).toEqual([]);
-    await page.emulateMedia({ colorScheme: 'dark', reducedMotion: 'reduce' }); const darkResults = await new AxeBuilder({ page }).analyze(); expect(darkResults.violations).toEqual([]); await page.emulateMedia({ colorScheme: 'light' });
+    await page.emulateMedia({ colorScheme: 'dark', reducedMotion: 'reduce' }); const darkResults = await new AxeBuilder({ page }).analyze(); expect(darkResults.violations).toEqual([]);
+    const buttonContrast = await page.locator('.button').evaluateAll((nodes) => {
+      function luminance(value: string) {
+        const channels = (value.match(/[\d.]+/g) ?? []).slice(0, 3).map(Number).map((channel) => {
+          const normalized = channel / 255;
+          return normalized <= 0.04045 ? normalized / 12.92 : ((normalized + 0.055) / 1.055) ** 2.4;
+        });
+        return 0.2126 * channels[0]! + 0.7152 * channels[1]! + 0.0722 * channels[2]!;
+      }
+      return nodes.filter((node) => (node as HTMLElement).offsetParent !== null).map((node) => {
+        const style = getComputedStyle(node);
+        const lighter = Math.max(luminance(style.color), luminance(style.backgroundColor));
+        const darker = Math.min(luminance(style.color), luminance(style.backgroundColor));
+        return (lighter + 0.05) / (darker + 0.05);
+      });
+    });
+    expect(buttonContrast.every((ratio) => ratio >= 4.5)).toBe(true);
+    await page.emulateMedia({ colorScheme: 'light' });
   }
   await page.setViewportSize({ width: 390, height: 844 }); await page.goto('/'); expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390);
   await expect(page.getByRole('heading', { level: 1 })).toBeInViewport(); await expect(page.getByRole('link', { name: 'Try it with sample data' }).first()).toBeInViewport(); await expect(page.getByRole('link', { name: 'Download the extension' }).first()).toBeInViewport(); await expect(page.locator('.action-note')).toBeInViewport(); await expect(page.locator('.plain-facts')).toBeInViewport();
