@@ -1,3 +1,29 @@
+# Workspace Profiles — review 5 handoff
+
+## Review 5 result
+
+Created `.factory/review-5.md`. The independent seven-day re-review is **FAIL** with four findings: two blocking and two minor. Three public claim surfaces remain untested. No product source was changed.
+
+## Review 5 verification
+
+- Fresh 390×844 and 1440×900 live contexts confirmed the job, audience, first action, outcome, and facts before scrolling.
+- The one-click demo, isolated storage, realistic sample, reset, start-for-real cleanup, same-origin traffic, offline reload, and real-data sentinel all passed.
+- All 18 exact commands from `.factory/claims.json` passed individually, but `reading-controls` omits its lower bounds. Demo Share and Copy actions only set success text and have no claim entries.
+- A clean checkout passed `npm test`, lint, typecheck, build, 9 site tests, and 11 packaged-extension tests.
+- The installed live ZIP was exercised in a fresh Chromium consumer profile and exactly matches the implementation build.
+- Live Lighthouse reported 100 in all four categories. The full evidence and every earlier finding’s current disposition are in `.factory/review-5.md`.
+
+## Review 5 known gaps
+
+- Make the demo Share and Copy actions truthful and test their observable effect, or remove them.
+- Test the 100% and 1.2× reading-control boundaries.
+- Remove public transit metaphor labels and the 404 map heading.
+- Increase the listed phone link targets to at least 44×44 CSS pixels.
+
+Pre-existing `graphify-out/` edits remain untouched and are excluded from the review commit.
+
+---
+
 # Workspace Profiles — review 4 handoff
 
 ## Review 4 result
