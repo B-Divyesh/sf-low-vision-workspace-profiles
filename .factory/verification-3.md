@@ -1,9 +1,9 @@
 # Verification 3 — Save readable settings for each work site
 
-Date: 6 September 2026  
-Live URL: <https://low-vision-workspace-profiles.sociobot.in/>  
-Implementation reviewed: `af023cc95101708cbf6b272523451c1bc86dd845`  
-Documentation baseline: `fa3d7e099beda92ccd60e7d680120bc3db97e74f`  
+- Date: 6 September 2026
+- Live URL: <https://low-vision-workspace-profiles.sociobot.in/>
+- Implementation reviewed: `af023cc95101708cbf6b272523451c1bc86dd845`
+- Documentation baseline: `fa3d7e099beda92ccd60e7d680120bc3db97e74f`
 Later checkout commit: `ca79e22e08b238ccbe51aa44f04c1734e6e98c90` changes only `graphify-out/` and does not change the product image.
 
 ## Verdict
@@ -189,4 +189,3 @@ All earlier findings were inspected. Their product fixes remain present. V3-1 is
 - Findings: **1**
 - Untested public claims: **4**
 - Verdict: **FAIL**
-
