@@ -9,7 +9,7 @@ Repair 2 resolves all four Review 5 findings and the three untested claim surfac
 - First action: **Try it with sample data**.
 - Live URL: <https://low-vision-workspace-profiles.sociobot.in/>
 - Deployment: Azure Static Web Apps deployment `0f0d744e-b273-4e49-87fc-3d6640859ca6`.
-- Documentation: this handoff is a later documentation commit; the implementation SHA above is the deployed product source.
+- Documentation evidence SHA: `2a826fd68df79f8c101163877ef3b3a14fe4edda`. The implementation SHA above remains the deployed product source.
 
 ## Changes
 
