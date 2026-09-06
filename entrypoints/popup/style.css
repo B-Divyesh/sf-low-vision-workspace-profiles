@@ -28,7 +28,7 @@ button, select, input:not([type='range']):not([type='checkbox']) { min-height: 4
 button { cursor: pointer; }
 [hidden] { display: none !important; }
 
-.skip-link { position: fixed; z-index: 20; top: 4px; left: 8px; padding: 8px 12px; color: #fff; background: var(--signal); transform: translateY(-150%); }
+.skip-link { position: fixed; z-index: 20; top: 4px; left: 8px; min-height: 44px; padding: 8px 12px; color: #fff; background: var(--signal); transform: translateY(-150%); }
 .skip-link:focus { transform: none; }
 :focus-visible { outline: 3px solid #a06a19; outline-offset: 3px; }
 
@@ -56,7 +56,7 @@ main { min-height: 390px; }
 .site-banner { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 18px; background: var(--surface); border-bottom: 1px solid var(--line); }
 .site-banner strong { display: block; max-width: 170px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .site-banner .eyebrow { color: var(--signal); }
-.switch-row { display: flex; align-items: center; gap: 8px; font-size: .87rem; font-weight: 700; }
+.switch-row { display: flex; min-height: 44px; align-items: center; gap: 8px; font-size: .87rem; font-weight: 700; }
 .switch-row input { position: absolute; opacity: 0; }
 .switch { position: relative; display: block; width: 52px; height: 30px; border: 2px solid var(--ink); border-radius: 16px; background: var(--paper); }
 .switch::after { content: ''; position: absolute; top: 4px; left: 4px; width: 18px; height: 18px; border-radius: 50%; background: var(--ink); transition: transform 180ms ease; }
@@ -76,9 +76,9 @@ legend { padding-right: 8px; color: var(--signal); font: 700 .8rem/1 'Arial Narr
 .range-row { margin: 0 0 16px; }
 .range-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
 output { font-weight: 800; font-variant-numeric: tabular-nums; color: var(--signal); }
-input[type='range'] { width: 100%; height: 32px; margin: 3px 0 0; accent-color: var(--signal); }
+input[type='range'] { width: 100%; height: 44px; margin: 3px 0 0; accent-color: var(--signal); }
 fieldset > select { margin: 5px 0 0; }
-.check-row { display: grid; grid-template-columns: 28px 1fr; gap: 9px; margin-bottom: 14px; }
+.check-row { display: grid; grid-template-columns: 28px 1fr; gap: 9px; min-height: 44px; margin-bottom: 14px; }
 .check-row input { width: 24px; height: 24px; accent-color: var(--signal); }
 .check-row small { display: block; margin-top: 2px; color: var(--muted); font-weight: 400; }
 .shortcut { margin: 4px 0 0; color: var(--muted); font-size: .84rem; }
@@ -97,7 +97,7 @@ kbd { display: inline-block; padding: 1px 5px; border: 1px solid var(--line); bo
 
 footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 52px; padding: 10px 18px; border-top: 1px solid var(--line); color: var(--muted); background: var(--surface); font-size: .82rem; }
 footer p { margin: 0; }
-.undo { min-height: 36px; padding: 6px 10px; border: 0; color: var(--signal); background: transparent; font-weight: 800; text-decoration: underline; }
+.undo { min-height: 44px; padding: 6px 10px; border: 0; color: var(--signal); background: transparent; font-weight: 800; text-decoration: underline; }
 
 @keyframes turn { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) {

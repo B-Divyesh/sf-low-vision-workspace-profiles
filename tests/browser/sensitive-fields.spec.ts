@@ -232,6 +232,8 @@ test('@claim:extension-privacy applies a profile without a remote request', asyn
 });
 
 test('packaged popup has landmarks, keyboard focus, and no axe violations', async () => {
+  await clearProfiles();
+  await saveAssignedProfile();
   const worker = context.serviceWorkers()[0] ?? await context.waitForEvent('serviceworker');
   const extensionId = new URL(worker.url()).host;
   const popup = await context.newPage();
@@ -244,6 +246,15 @@ test('packaged popup has landmarks, keyboard focus, and no axe violations', asyn
   await expect(popup.locator('h1')).toHaveCount(1);
   await popup.keyboard.press('Tab');
   await expect(popup.getByRole('link', { name: 'Skip to controls' })).toBeFocused();
+  const undersized = await popup.locator('button, select, input:not([type="checkbox"]):not([type="file"]), summary, label.switch-row, label.check-row, label.file-button').evaluateAll((nodes) => nodes.flatMap((node) => {
+    const element = node as HTMLElement;
+    if (element.offsetParent === null) return [];
+    const box = element.getBoundingClientRect();
+    return box.width + 0.01 < 44 || box.height + 0.01 < 44
+      ? [`${element.tagName.toLowerCase()}#${element.id || '-'}:${box.width.toFixed(1)}x${box.height.toFixed(1)}`]
+      : [];
+  }));
+  expect(undersized).toEqual([]);
   expect((await new AxeBuilder({ page: popup }).analyze()).violations).toEqual([]);
   expect(errors).toEqual([]);
   await popup.close();

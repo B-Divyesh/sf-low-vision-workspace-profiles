@@ -15,6 +15,8 @@ const moreActions = document.querySelector<HTMLButtonElement>('#more-actions')!;
 const sampleActionStatus = document.querySelector<HTMLElement>('#sample-action-status')!;
 const copyStatus = document.querySelector<HTMLElement>('#copy-status')!;
 const sampleNote = document.querySelector<HTMLInputElement>('#sample-note')!;
+const shareReport = document.querySelector<HTMLButtonElement>('#share-report')!;
+const sampleSummary = 'Quarterly service report — North region, Q2. Requests were resolved faster while the open queue fell.';
 function read(): DemoState { try { return { ...seed, ...JSON.parse(localStorage.getItem(key) ?? '{}') } as DemoState; } catch { return { ...seed }; } }
 function render(state: DemoState, announce = false, persist = true) {
   textScale.value = String(state.textScale); lineHeight.value = String(state.lineHeight); color.value = state.color; active.checked = state.active;
@@ -37,15 +39,28 @@ document.querySelector('#reset-demo')?.addEventListener('click', () => {
 });
 document.querySelector('#start-real')?.addEventListener('click', () => localStorage.removeItem(key));
 document.querySelector('#export-demo')?.addEventListener('click', () => { const blob = new Blob([JSON.stringify({ profile: 'Quarterly reports', site: 'reports.example', ...current() }, null, 2)], { type: 'application/json' }); const link = document.createElement('a'); link.href = URL.createObjectURL(blob); link.download = 'workspace-profile-demo.json'; link.click(); URL.revokeObjectURL(link.href); status.textContent = 'Sample profile exported as a backup file.'; });
-document.querySelector<HTMLButtonElement>('#share-report')?.addEventListener('click', () => {
-  sampleActionStatus.textContent = 'Sample report shared with your workspace.';
+if (typeof navigator.share !== 'function') shareReport.hidden = true;
+shareReport.addEventListener('click', async () => {
+  try {
+    await navigator.share({ title: 'Quarterly service report', text: sampleSummary, url: new URL('/demo/', location.origin).href });
+    sampleActionStatus.textContent = 'Sharing options opened for the sample report.';
+  } catch (error) {
+    sampleActionStatus.textContent = error instanceof DOMException && error.name === 'AbortError'
+      ? 'Sharing canceled. Nothing was shared.'
+      : 'Sharing did not open. Use Copy summary instead.';
+  }
 });
 moreActions.addEventListener('click', () => {
   sampleActions.hidden = !sampleActions.hidden;
   moreActions.setAttribute('aria-expanded', String(!sampleActions.hidden));
 });
-document.querySelector<HTMLButtonElement>('#copy-summary')?.addEventListener('click', () => {
-  copyStatus.textContent = 'Sample summary copied.';
+document.querySelector<HTMLButtonElement>('#copy-summary')?.addEventListener('click', async () => {
+  try {
+    await navigator.clipboard.writeText(sampleSummary);
+    copyStatus.textContent = 'Sample report summary copied.';
+  } catch {
+    copyStatus.textContent = 'Copy failed. Allow clipboard access, then try again.';
+  }
 });
 render(read(), false, localStorage.getItem(key) !== null);
 if ('serviceWorker' in navigator && location.protocol === 'https:') window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => undefined));

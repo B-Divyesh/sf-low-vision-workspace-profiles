@@ -4,7 +4,7 @@
 
 **Art-deco transit poster for a calmer route through work.** Workspace Profiles uses a familiar transit line as visual structure for saved profiles and assigned sites. The geometry is optimistic and architectural rather than nostalgic decoration. Strong rails, stepped corners, circular station markers, and compact wayfinding labels make the product feel dependable to someone who needs to find controls quickly. Public instructions always use the literal words **profile** and **site**; the transit idea stays decorative.
 
-The extension UI is deliberately quieter than the landing page. It keeps the same wayfinding language but prioritizes large controls and immediate status. Decoration appears only where it explains a route, profile, or focused region.
+The extension UI is deliberately quieter than the landing page. It keeps the same geometric language but prioritizes large controls and immediate status. Public section labels name their content directly: overview, setup, controls, and privacy. Transit references remain only in decorative shapes and internal style names.
 
 ## Palette
 

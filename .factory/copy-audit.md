@@ -1,6 +1,6 @@
 # Copy audit
 
-Audited 28 August 2026. Counts are whitespace-delimited. All public prose is 22 words or fewer.
+Audited 6 September 2026. Counts are whitespace-delimited. All public prose is 22 words or fewer.
 
 ## First screen
 
@@ -37,6 +37,21 @@ Audited 28 August 2026. Counts are whitespace-delimited. All public prose is 22 
 | L21 | It changes visual presentation. | 4 |
 | L22 | Save a readable profile for each work site. | 8 |
 | L23 | Original hero artwork generated with the factory image model. | 9 |
+
+The section labels are literal: `Overview — Reading controls by site`, `Setup — Three steps`, `Controls — Text and spacing`, and `Privacy — Browser storage`. The 404 heading and label both say `Page not found`.
+
+## Demo action sentences
+
+| # | Sentence | Words |
+|---|---|---:|
+| D1 | Sharing options opened for the sample report. | 7 |
+| D2 | Sharing canceled. | 2 |
+| D3 | Nothing was shared. | 3 |
+| D4 | Sharing did not open. | 4 |
+| D5 | Use Copy summary instead. | 4 |
+| D6 | Sample report summary copied. | 4 |
+| D7 | Copy failed. | 2 |
+| D8 | Allow clipboard access, then try again. | 6 |
 
 ## README sentences
 
@@ -90,4 +105,4 @@ No public copy contains: leverage, seamless, effortless, robust, powerful, intui
 | Visual palette | color |
 | Exported settings | backup file |
 
-Transit lines, roundels, and station markers remain decorative parts of the art-deco visual system. Instructions use the literal terms above.
+Geometric lines, roundels, and markers remain decorative parts of the art-deco visual system. Public labels and instructions use the literal terms above.

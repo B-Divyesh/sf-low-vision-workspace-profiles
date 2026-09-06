@@ -1,7 +1,8 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
-test('@claim:demo-isolation opens seeded data and keeps real storage untouched', async ({ page }) => {
+test('@claim:demo-isolation opens seeded data and keeps real storage untouched', async ({ page, context }) => {
+  await context.grantPermissions(['clipboard-read', 'clipboard-write'], { origin: 'http://127.0.0.1:4173' });
   await page.addInitScript(() => localStorage.setItem('workspace-profiles:real', 'keep-me'));
   await page.goto('/?demo=1');
   await expect(page).toHaveURL(/\/demo\/$/);
@@ -9,9 +10,9 @@ test('@claim:demo-isolation opens seeded data and keeps real storage untouched',
   await expect(page.getByText('Quarterly service report')).toBeVisible();
   await page.locator('#text-scale').fill('160');
   await page.locator('#sample-note').fill('Changed demo note');
-  await page.getByRole('button', { name: 'Share report' }).click();
   await page.getByRole('button', { name: 'Show report actions' }).click();
   await page.getByRole('button', { name: 'Copy summary' }).click();
+  await expect(page.locator('#copy-status')).toHaveText('Sample report summary copied.');
   const keys = await page.evaluate(() => Object.keys(localStorage));
   expect(keys.filter((key) => key !== 'workspace-profiles:real')).toEqual(['demo:workspace-profiles:reports-example']);
   expect(await page.evaluate(() => localStorage.getItem('workspace-profiles:real'))).toBe('keep-me');
@@ -22,22 +23,91 @@ test('@claim:demo-isolation opens seeded data and keeps real storage untouched',
   await expect(page.locator('#sample-actions')).toBeHidden();
   await expect(page.locator('#sample-action-status')).toBeEmpty();
   await expect(page.locator('#copy-status')).toBeEmpty();
+  await page.locator('#text-scale').fill('150');
+  await expect.poll(() => page.evaluate(() => localStorage.getItem('demo:workspace-profiles:reports-example'))).not.toBeNull();
+  await page.getByRole('link', { name: 'Start for real' }).click();
+  await expect(page).toHaveURL('http://127.0.0.1:4173/');
+  expect(await page.evaluate(() => localStorage.getItem('demo:workspace-profiles:reports-example'))).toBeNull();
+  expect(await page.evaluate(() => localStorage.getItem('workspace-profiles:real'))).toBe('keep-me');
 });
 
 test('@claim:reading-controls applies the stated text and spacing ranges', async ({ page }) => {
   await page.goto('/demo/');
   const text = page.locator('#text-scale'); const spacing = page.locator('#line-height'); const reading = page.locator('.sample-reading').first();
+  await text.fill('100'); await spacing.fill('1.2');
+  await expect(page.locator('#text-value')).toHaveText('100%'); await expect(page.locator('#line-value')).toHaveText('1.20×');
+  const minimum = await reading.evaluate((node) => ({
+    root: parseFloat(getComputedStyle(document.documentElement).fontSize),
+    size: parseFloat(getComputedStyle(node).fontSize),
+    line: parseFloat(getComputedStyle(node).lineHeight)
+  }));
+  expect(minimum.size / minimum.root).toBeCloseTo(1, 2); expect(minimum.line / minimum.size).toBeCloseTo(1.2, 2);
+  await page.getByRole('button', { name: 'Show report actions' }).click();
+  await expect(page.locator('#sample-actions')).toBeVisible();
   await text.fill('180'); await spacing.fill('2');
   await expect(page.locator('#text-value')).toHaveText('180%'); await expect(page.locator('#line-value')).toHaveText('2.00×');
-  const computed = await reading.evaluate((node) => ({ size: getComputedStyle(node).fontSize, line: getComputedStyle(node).lineHeight }));
-  expect(parseFloat(computed.size)).toBeGreaterThanOrEqual(28); expect(parseFloat(computed.line)).toBeGreaterThan(parseFloat(computed.size));
-  await page.getByRole('button', { name: 'Share report' }).click();
-  await expect(page.locator('#sample-action-status')).toHaveText('Sample report shared with your workspace.');
+  const maximum = await reading.evaluate((node) => ({
+    root: parseFloat(getComputedStyle(document.documentElement).fontSize),
+    size: parseFloat(getComputedStyle(node).fontSize),
+    line: parseFloat(getComputedStyle(node).lineHeight)
+  }));
+  expect(maximum.size / maximum.root).toBeCloseTo(1.8, 2); expect(maximum.line / maximum.size).toBeCloseTo(2, 2);
   await page.getByRole('button', { name: 'Show report actions' }).click();
-  await expect(page.getByRole('button', { name: 'Copy summary' })).toBeVisible();
+  await expect(page.locator('#sample-actions')).toBeHidden();
+  expect(await page.getByRole('button', { name: 'Show report actions' }).evaluate((node) => getComputedStyle(node).fontSize)).toBe('18px');
+});
+
+test('@claim:sample-share passes sample report details to the browser share action', async ({ page }) => {
+  await page.addInitScript(() => {
+    const shareWindow = window as typeof window & { __shareCalls: ShareData[] };
+    shareWindow.__shareCalls = [];
+    Object.defineProperty(navigator, 'share', {
+      configurable: true,
+      value: async (data: ShareData) => { shareWindow.__shareCalls.push(data); }
+    });
+  });
+  await page.goto('/demo/');
+  await page.getByRole('button', { name: 'Share report' }).click();
+  expect(await page.evaluate(() => (window as typeof window & { __shareCalls: ShareData[] }).__shareCalls)).toEqual([{
+    title: 'Quarterly service report',
+    text: 'Quarterly service report — North region, Q2. Requests were resolved faster while the open queue fell.',
+    url: 'http://127.0.0.1:4173/demo/'
+  }]);
+  await expect(page.locator('#sample-action-status')).toHaveText('Sharing options opened for the sample report.');
+});
+
+test('@claim:sample-copy writes the report summary to the clipboard', async ({ page, context }) => {
+  await context.grantPermissions(['clipboard-read', 'clipboard-write'], { origin: 'http://127.0.0.1:4173' });
+  await page.goto('/demo/');
+  await page.evaluate(() => navigator.clipboard.writeText('unchanged-marker'));
+  await page.getByRole('button', { name: 'Show report actions' }).click();
   await page.getByRole('button', { name: 'Copy summary' }).click();
-  await expect(page.locator('#copy-status')).toHaveText('Sample summary copied.');
-  expect(await page.locator('.sample-toolbar button').first().evaluate((node) => getComputedStyle(node).fontSize)).toBe('18px');
+  expect(await page.evaluate(() => navigator.clipboard.readText())).toBe('Quarterly service report — North region, Q2. Requests were resolved faster while the open queue fell.');
+  await expect(page.locator('#copy-status')).toHaveText('Sample report summary copied.');
+});
+
+test('demo actions report cancellation and clipboard errors without false success', async ({ page }) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, 'share', { configurable: true, value: async () => { throw new DOMException('Canceled', 'AbortError'); } });
+    Object.defineProperty(navigator, 'clipboard', { configurable: true, value: { writeText: async () => { throw new DOMException('Denied', 'NotAllowedError'); } } });
+  });
+  await page.goto('/demo/');
+  await page.getByRole('button', { name: 'Share report' }).click();
+  await expect(page.locator('#sample-action-status')).toHaveText('Sharing canceled. Nothing was shared.');
+  await page.getByRole('button', { name: 'Show report actions' }).click();
+  await page.getByRole('button', { name: 'Copy summary' }).click();
+  await expect(page.locator('#copy-status')).toHaveText('Copy failed. Allow clipboard access, then try again.');
+});
+
+test('demo recovers from malformed sample storage with the seeded profile', async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('demo:workspace-profiles:reports-example', '{not valid json'));
+  await page.goto('/demo/');
+  await expect(page.locator('#text-scale')).toHaveValue('140');
+  await expect(page.locator('#line-height')).toHaveValue('1.65');
+  await expect(page.locator('#color-option')).toHaveValue('warm');
+  await expect(page.locator('#profile-active')).toBeChecked();
+  await page.locator('#text-scale').fill('150');
+  expect(JSON.parse(await page.evaluate(() => localStorage.getItem('demo:workspace-profiles:reports-example')) as string)).toMatchObject({ textScale: 150 });
 });
 
 test('@claim:profile-persistence reloads settings and pause restores the original view', async ({ page }) => {
@@ -109,6 +179,21 @@ test('routes, metadata, mobile first screen, keyboard, and accessibility', async
   }
   await page.setViewportSize({ width: 390, height: 844 }); await page.goto('/'); expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390);
   await expect(page.getByRole('heading', { level: 1 })).toBeInViewport(); await expect(page.getByRole('link', { name: 'Try it with sample data' }).first()).toBeInViewport(); await expect(page.getByRole('link', { name: 'Download the extension' }).first()).toBeInViewport(); await expect(page.locator('.action-note')).toBeInViewport(); await expect(page.locator('.plain-facts')).toBeInViewport();
+  for (const route of ['/', '/demo/', '/privacy/', '/terms/', '/404.html']) {
+    await page.goto(route);
+    const undersized = await page.locator('a, button, summary, input, select').evaluateAll((nodes) => nodes.flatMap((node) => {
+      const element = node as HTMLElement;
+      if (element.offsetParent === null || element.matches('.skip-link:not(:focus)')) return [];
+      const target = element instanceof HTMLInputElement && element.type === 'checkbox' && element.labels?.[0]
+        ? element.labels[0]
+        : element;
+      const box = target.getBoundingClientRect();
+      return box.width + 0.01 < 44 || box.height + 0.01 < 44
+        ? [`${element.tagName.toLowerCase()}#${element.id || '-'}:${box.width.toFixed(1)}x${box.height.toFixed(1)}`]
+        : [];
+    }));
+    expect(undersized, `${route} has undersized touch targets`).toEqual([]);
+  }
   await page.setViewportSize({ width: 1440, height: 900 }); await page.goto('/');
   await expect(page.getByRole('heading', { level: 1 })).toBeInViewport(); await expect(page.locator('.hero-lede')).toBeInViewport();
   await expect(page.getByRole('link', { name: 'Try it with sample data' }).first()).toBeInViewport(); await expect(page.locator('.action-note')).toBeInViewport(); await expect(page.locator('.plain-facts')).toBeInViewport();
@@ -117,5 +202,5 @@ test('routes, metadata, mobile first screen, keyboard, and accessibility', async
   await page.goBack(); await expect(page.getByRole('link', { name: 'Demo' })).toBeFocused(); await expect(page.locator('#route-status')).toHaveText('Save readable settings for each work site');
   expect(consoleErrors).toEqual([]);
   const response = await page.goto('/not-a-real-page'); expect(response?.status()).toBe(404);
-  await page.goto('/404.html'); expect(await page.title()).toBe('404 — Workspace Profiles'); await expect(page.locator('main')).toHaveCount(1); await expect(page.locator('h1')).toHaveText('This page is not on the map'); await expect(page.locator('meta[property="og:title"]')).toHaveAttribute('content', '404 — Workspace Profiles'); await expect(page.locator('meta[property="og:image"]')).toHaveCount(1); await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute('content', 'summary_large_image'); expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  await page.goto('/404.html'); expect(await page.title()).toBe('404 — Workspace Profiles'); await expect(page.locator('main')).toHaveCount(1); await expect(page.locator('h1')).toHaveText('Page not found'); await expect(page.locator('meta[property="og:title"]')).toHaveAttribute('content', '404 — Workspace Profiles'); await expect(page.locator('meta[property="og:image"]')).toHaveCount(1); await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute('content', 'summary_large_image'); expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
 });

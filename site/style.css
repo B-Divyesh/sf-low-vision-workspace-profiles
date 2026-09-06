@@ -41,14 +41,14 @@ h3 { font-size: 1.5rem; }
 :focus-visible { outline: 4px solid var(--brass); outline-offset: 4px; }
 
 .site-header { position: relative; z-index: 10; display: grid; grid-template-columns: 260px 1fr auto; align-items: center; min-height: 88px; padding: 14px clamp(20px, 5vw, 76px); border-bottom: 2px solid var(--ink); background: var(--paper); }
-.brand { display: inline-flex; align-items: center; gap: 11px; width: fit-content; font: 700 .9rem/1.05 'Arial Narrow', sans-serif; letter-spacing: .08em; text-decoration: none; text-transform: uppercase; }
+.brand { display: inline-flex; align-items: center; gap: 11px; width: fit-content; min-height: 44px; font: 700 .9rem/1.05 'Arial Narrow', sans-serif; letter-spacing: .08em; text-decoration: none; text-transform: uppercase; }
 .brand-roundel { position: relative; display: block; width: 50px; height: 50px; flex: 0 0 50px; border: 3px solid var(--ink); border-radius: 50%; }
 .brand-roundel i { position: absolute; left: 8px; right: 8px; height: 4px; background: var(--ink); }
 .brand-roundel i:first-child { top: 11px; }
 .brand-roundel i:nth-child(2) { top: 20px; background: var(--signal); }
 .brand-roundel i:last-child { top: 29px; }
 .site-header nav { display: flex; justify-content: center; gap: clamp(18px, 3vw, 46px); }
-.site-header nav a, .site-footer nav a { min-height: 44px; display: inline-flex; align-items: center; font-size: .88rem; font-weight: 700; text-underline-offset: 5px; }
+.site-header nav a, .site-footer nav a { min-width: 44px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; font-size: .88rem; font-weight: 700; text-underline-offset: 5px; }
 .site-header nav a:not(:hover) { text-decoration: none; }
 
 .button { display: inline-flex; min-height: 52px; align-items: center; justify-content: center; gap: 14px; padding: 12px 21px; border: 2px solid var(--ink); border-radius: 0; color: var(--cream); background: var(--ink); font-weight: 800; text-align: center; text-decoration: none; cursor: pointer; box-shadow: 5px 5px 0 var(--brass); transition: transform 180ms ease, box-shadow 180ms ease; }
@@ -58,6 +58,7 @@ h3 { font-size: 1.5rem; }
 .button.cream { color: var(--ink); border-color: var(--cream); background: var(--cream); box-shadow: 5px 5px 0 #6e4211; }
 .button.compact { min-height: 44px; padding: 8px 15px; font-size: .86rem; box-shadow: 3px 3px 0 var(--brass); }
 .text-link, .text-button { color: var(--signal-deep); font-weight: 800; text-underline-offset: 5px; }
+.text-link, .legal-page p > a { display: inline-flex; min-height: 44px; align-items: center; }
 .text-button { min-height: 44px; padding: 7px 0; border: 0; background: transparent; cursor: pointer; text-decoration: underline; }
 
 .hero { display: grid; grid-template-columns: minmax(440px, .98fr) minmax(520px, 1.02fr); min-height: 690px; border-bottom: 8px solid var(--signal); }
