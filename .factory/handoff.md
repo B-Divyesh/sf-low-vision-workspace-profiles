@@ -1,117 +1,102 @@
-# Workspace Profiles — review 5 handoff
+# Workspace Profiles — repair 2 handoff
 
-## Review 5 result
+## Outcome
 
-Created `.factory/review-5.md`. The independent seven-day re-review is **FAIL** with four findings: two blocking and two minor. Three public claim surfaces remain untested. No product source was changed.
+Repair 2 resolves all four Review 5 findings and the three untested claim surfaces. The live site and downloadable extension are the exact clean build of implementation commit `af023cc95101708cbf6b272523451c1bc86dd845`.
 
-## Review 5 verification
+- Job: save readable settings for each work site.
+- Audience: people with low vision who need larger text without losing tables and controls.
+- First action: **Try it with sample data**.
+- Live URL: <https://low-vision-workspace-profiles.sociobot.in/>
+- Deployment: Azure Static Web Apps deployment `0f0d744e-b273-4e49-87fc-3d6640859ca6`.
+- Documentation: this handoff is a later documentation commit; the implementation SHA above is the deployed product source.
 
-- Fresh 390×844 and 1440×900 live contexts confirmed the job, audience, first action, outcome, and facts before scrolling.
-- The one-click demo, isolated storage, realistic sample, reset, start-for-real cleanup, same-origin traffic, offline reload, and real-data sentinel all passed.
-- All 18 exact commands from `.factory/claims.json` passed individually, but `reading-controls` omits its lower bounds. Demo Share and Copy actions only set success text and have no claim entries.
-- A clean checkout passed `npm test`, lint, typecheck, build, 9 site tests, and 11 packaged-extension tests.
-- The installed live ZIP was exercised in a fresh Chromium consumer profile and exactly matches the implementation build.
-- Live Lighthouse reported 100 in all four categories. The full evidence and every earlier finding’s current disposition are in `.factory/review-5.md`.
+## Changes
 
-## Review 5 known gaps
+- **Share report** now calls the browser share action with the fixed sample title, summary, and demo URL. It appears only when the browser provides that action. Success text is set only after the browser action resolves. Cancellation and failure have accurate messages.
+- **Copy summary** now writes the fixed sample summary to the clipboard. It reports success only after the write resolves and gives a recovery step if access fails.
+- Added `sample-share` and `sample-copy` claim entries with observable API and clipboard checks. The registry now has 20 claims and every id appears in exactly one tagged test.
+- Expanded `reading-controls` to set and measure 100%, 180%, 1.2×, and 2×. It also operates the sample disclosure at both ends.
+- Replaced `Profile 01` through `Profile 04`, the map-based 404 heading, and the remaining popup metaphor heading with literal labels.
+- Increased phone navigation, footer, wordmark, inline, and legal-link targets to at least 44×44 CSS pixels. Extension sliders, switches, checkbox rows, skip link, and Undo action now use the same minimum.
+- Added a measured phone target regression across Home, Demo, Privacy, Terms, and 404, plus a packaged-popup target check.
+- Added demo recovery coverage for malformed sample storage. Reset and Start for real both remove the demo key while preserving a seeded real-data sentinel.
+- Advanced the service-worker cache name so installed visitors receive the repaired shell.
 
-- Make the demo Share and Copy actions truthful and test their observable effect, or remove them.
-- Test the 100% and 1.2× reading-control boundaries.
-- Remove public transit metaphor labels and the 404 map heading.
-- Increase the listed phone link targets to at least 44×44 CSS pixels.
+## Finding disposition
 
-Pre-existing `graphify-out/` edits remain untouched and are excluded from the review commit.
-
----
-
-# Workspace Profiles — review 4 handoff
-
-## Review 4 result
-
-Created `.factory/review-4.md`. The complete adversarial first-read review is **PASS** with zero blocking or minor findings. No product source was changed.
-
-## Review 4 verification
-
-- Cold live checks at 390×844 and 1440×900 confirmed the job, audience, primary demo action, outcome, and facts before scrolling.
-- The live demo showed active realistic sample data, its persistent isolated-demo banner, Reset demo, Start for real, and same-origin traffic.
-- A disposable clean clone at `/tmp/lvw-review4` passed `npm ci`, `npm test`, `npm run lint`, `npm run build`, and `npm run test:site`.
-- All 18 exact commands from `.factory/claims.json` passed individually, including packaged-extension tests.
-- Every finding in reviews 1–3 was checked against current code and the live site and confirmed fixed.
-
-## Known gaps
-
-None. Pre-existing `graphify-out/` edits remain untouched and are excluded from this review commit.
-
----
-
-# Workspace Profiles — polish 3 handoff
-
-## Delivered
-
-- Closed all 26 findings recorded across `.factory/review-1.md`, `review-2.md`, and `review-3.md`; the per-finding map is in `.factory/polish-3.md`.
-- Added packaged-extension claims and behavior tests for all four color treatments, pointer/keyboard cursor-ring movement, and hold/release focus enlargement.
-- Fit the complete job, audience, two actions, action outcome, and three facts inside the 390×844 first screen without changing the art-deco transit identity.
-- Added polite route announcements, complete 404 social metadata, plain result-naming actions, and backup-file wording.
-- Kept the direct `/demo/` and `?demo=1` sample path isolated under `demo:workspace-profiles:reports-example`, with persistent disclosure, reset, start-for-real cleanup, and offline reload.
-- Fixed the cold-live dark-mode contrast defect found during the final visual pass; all visible buttons now measure at least 5.98:1. Reset demo now also clears the sample note, action menu, and action statuses.
-- Updated `.factory/catalog-description.txt`, `.factory/copy-audit.md`, `.factory/claims.json`, `.factory/design.md`, README, and the extension popup terminology.
-
-## Clean-clone verification
-
-Final code commit: `ad1fea7d9845c68403f2547dce09b21c65d68b79`.
-
-A clean remote checkout at that exact commit was installed in `/tmp/lvw-polish3-final`. Results:
-
-| Check | Result |
+| Finding or earlier group | Current evidence |
 |---|---|
-| `npm ci` | PASS — 176 packages; 0 audit vulnerabilities |
+| F-5-1 / F-2-2 / F-1-3 — false or unlisted Share and Copy outcomes | `@claim:sample-share` inspects the payload received by `navigator.share`; `@claim:sample-copy` starts with a marker and inspects the resulting clipboard. A separate error-path test verifies cancellation and denied clipboard access never report success. |
+| F-5-2 — untested reading lower bounds | `@claim:reading-controls` measures both displayed and computed ratios at 100%/1.2× and 180%/2×. |
+| F-5-3 / F-1-8 / F-1-14 / F-1-16 — metaphorical public labels | Home uses Overview, Setup, Controls, and Privacy labels. The 404 says `Page not found`. The popup says `Cursor and focused content`. Source searches find none of the cited public phrases. |
+| F-5-4 — phone targets below 44×44 | The route test measures every visible link, button, summary, input, and select at 390 px. Live Home, Demo, Privacy, Terms, and 404 return no undersized targets. |
+| F-1-1 / F-2-1 / F-3-2 — first screen | Cold 390×844 and 1440×900 checks show the job, audience, sample action, outcome, and all facts before the fold at scroll position zero. |
+| F-1-2 — isolated one-click demo | Direct `/demo/` and `?demo=1` load the active `Quarterly reports` sample. Reset and Start for real remove only `demo:workspace-profiles:reports-example`; the real-data sentinel survives. |
+| F-1-4 — dead paid offer | No paid offer or checkout is advertised. The free demo and extension ZIP return 200. No offer was removed or changed in this repair. |
+| F-1-5 / F-1-6 / F-1-7 — routes, metadata, skeleton | All public routes have distinct titles, one h1/main, canonical/social metadata, shared navigation/footer, and route announcements. A missing URL returns the designed page with HTTP 404. |
+| F-1-9 through F-1-13 and F-2-4 — documentation and vocabulary | README still leads with the sample demo. Public sentences stay within 22 words and use site, profile, line spacing, color, cursor ring, hold-to-enlarge focus, and backup file consistently. |
+| F-1-15 — hidden mobile actions | Both sample and download action labels remain visible at 390 px. |
+| F-2-3 — extension storage/account/analytics/reversibility/assignment/privacy | All six packaged-extension claim commands pass in a fresh consumer environment. |
+| F-3-1 — color, cursor ring, hold-focus | All four colors, pointer and keyboard ring movement, and hold/release focus enlargement pass against the packaged MV3 extension. |
+| F-3-3 — route announcement | Home → Demo and Back restore focus and update the polite route-status region. |
+| F-3-4 — 404 social metadata | The real 404 retains complete Open Graph and Twitter metadata. |
+| F-3-5 / F-3-6 — vague action and backup jargon | `Show report actions` and `backup file` remain the public terms. |
+| Verification payment-field blocker | Maximum-scale packaged tests keep password, payment, card, cc-*, CVC/CVV, autocomplete, and payment textarea styles unchanged. |
+| Verification 2 immutable-cache note | Live hashed assets return `public, max-age=31536000, immutable`; `sw.js` returns `no-cache`. |
+
+## Clean verification
+
+A fresh remote clone at `af023cc95101708cbf6b272523451c1bc86dd845` was installed with `npm ci`.
+
+| Command | Result |
+|---|---|
+| `npm ci` | PASS — 176 packages, 0 audit vulnerabilities |
 | `npm test` | PASS — 5/5 unit tests |
 | `npm run lint` | PASS |
 | `npm run typecheck` | PASS |
-| `npm run build` | PASS — extension, ZIP, and `dist/site/` produced |
-| `npm run test:site` | PASS — 9/9 integration/claim tests |
-| `npm run test:browser` | PASS — 11/11 packaged-extension tests |
+| `npm run build` | PASS — site, unpacked extension, ZIP, and download produced |
+| `npm run test:site` | PASS — 13/13 |
+| `npm run test:browser` | PASS — 11/11 |
 | `npm audit --omit=dev` | PASS — 0 vulnerabilities |
 
-Every command in `.factory/claims.json` was then run separately in that clean clone. All 18 passed: `demo-isolation`, `reading-controls`, `profile-persistence`, `json-export`, `first-party-only-demo`, `no-account-demo`, `free-core`, `offline-demo`, `color-options`, `cursor-ring`, `hold-focus`, `sensitive-fields`, `extension-storage`, `extension-no-account`, `extension-no-analytics`, `extension-reversible`, `extension-assignment`, and `extension-privacy`. Each id occurs in exactly one `@claim:<id>` test.
+Every exact command in `.factory/claims.json` was then run separately. All 20 passed: `demo-isolation`, `reading-controls`, `sample-share`, `sample-copy`, `profile-persistence`, `json-export`, `first-party-only-demo`, `no-account-demo`, `free-core`, `offline-demo`, `color-options`, `cursor-ring`, `hold-focus`, `sensitive-fields`, `extension-storage`, `extension-no-account`, `extension-no-analytics`, `extension-reversible`, `extension-assignment`, and `extension-privacy`.
 
-Playwright axe reported zero violations on Home, Demo, Privacy, and Terms in light and dark/reduced-motion modes. It also reported zero violations in the packaged extension popup. Console and page-error listeners were empty on normal public routes and the popup.
+The production build uses 22.94 KB CSS, 5.15 KB or less route JavaScript, a 24.90 KB local font, and a 31.03 KB mobile AVIF hero. The unpacked extension is 68.14 KB.
 
-The production payload remains below budget: initial site JS totals 4.7 KB uncompressed, CSS is 22.8 KB, the font is 24.9 KB, and the mobile AVIF hero is 31.0 KB. The unpacked extension totals 68.1 KB.
+## Cold production verification
 
-## Deployment and cold live evidence
+- `verify-url.sh` passed with HTTP 200, the exact plain title, `lang="en"`, one h1, one main, complete image alt text, labelled buttons, and no console errors.
+- Fresh phone and desktop browsers both identified the job, audience, and **Try it with sample data** action before scrolling. All required first-screen content ended at 587 px on the 844 px phone and 831 px on the 900 px desktop.
+- The live demo measured 17 px/1.2× at its lower boundary and 30.6 px/2× at its upper boundary on the phone.
+- The live share observer received the fixed title, sample summary, and exact production demo URL. The live clipboard contained the fixed summary after Copy summary.
+- Reset restored 140%, 1.65×, warm paper, the original note, closed actions, and empty statuses. Reset and Start for real removed the demo key without changing the real-data sentinel.
+- All demo requests stayed on the product origin. An offline reload kept the complete Demo title, h1, banner, and sample shell.
+- Playwright axe found zero violations on Home, Demo, Privacy, Terms, and the 404 in dark/reduced-motion phone conditions. No route had horizontal overflow or a target below 44×44.
+- All crawled routes, fragments, the extension ZIP, and the public source link resolved. The deliberate missing route returned HTTP 404 and `Page not found`.
+- CSP, clickjacking protection, `nosniff`, referrer policy, permissions policy, HTTPS/HSTS, immutable asset caching, and no-cache service-worker delivery are active.
+- All 24 deployed files checked match the clean build byte for byte. The live extension ZIP SHA-256 is `911c50588e411f3f340f9cadf76fa6e6278e8cc545cbc52d2ca697295d26e363`.
+- The live ZIP was installed in a fresh Chromium profile. A 180%/2× night profile changed reading text from 16 px to 28.8 px and an ordinary input from 13.3333 px to 21.12 px. The password field stayed 13.3333 px. Removing the profile restored the baseline.
+- Live mobile Lighthouse: Performance 100, Accessibility 100, Best Practices 100, SEO 100; FCP 1.0 s, LCP 1.4 s, TBT 30 ms, CLS 0.
 
-The clean-checkout `dist/site` build was deployed through `/opt/fleet/lib/deploy-static.sh low-vision-workspace-profiles dist/site`. Azure deployment `f749ad8d-8f45-40c4-89bf-cde7b3f1a7a3` succeeded at the default host and the custom production URL:
+Evidence is under `/work/.evidence/repair-2/`.
 
-- <https://delightful-desert-07f963e0f.7.azurestaticapps.net>
-- <https://low-vision-workspace-profiles.sociobot.in/>
+## Run it
 
-`verify-url.sh` passed on the production URL: HTTP 200, the exact plain title, `lang="en"`, one h1, one main, no missing image alt, no unlabeled buttons, and no console errors.
+```sh
+npm ci
+npm test
+npm run lint
+npm run typecheck
+npm run build
+npm run test:site
+npm run test:browser
+```
 
-A separate cold Chromium pass produced `.factory/evidence/polish-3-live/live-check.json` and confirmed:
-
-- Home, Demo, Privacy, and Terms return 200 with exact route titles, descriptions, canonicals, OG/Twitter data, touch icons, one h1/main, no horizontal overflow at 390px, and zero axe violations.
-- At 390×844 the h1 ends at 240px, demo action at 355px, download at 413px, outcome at 494px, and all facts at 587px.
-- `/?demo=1` opens `/demo/`; only the `demo:` key is added; a seeded real-data sentinel survives changes and reset; Reset and Start for real both remove the demo key; every demo request is same-origin.
-- Reset also restores 140% text, the original sample note, a closed action panel, and empty action statuses.
-- Share report, Show report actions, and Copy summary produce visible results at 180% text; the banner stays visible.
-- Every visible dark-mode button has measured text contrast of at least 5.98:1.
-- Home → Demo focuses and announces the Demo h1. Back restores focus to the Demo link and announces the Home h1.
-- `/polish-3-missing` returns HTTP 404 with the designed page, 404 OG/Twitter metadata, and zero axe violations.
-- A controlled offline reload retains the Demo title, h1, banner, and sample shell.
-- Every link crawled across Home, Demo, Privacy, Terms, and 404 returns 200, including the extension ZIP and source repository.
-
-All served HTML, JS, CSS, images, font, service worker, sitemap, robots file, and extension ZIP match the clean-clone build byte for byte. The downloadable ZIP SHA-256 begins `b36ffb9d78b8f377`.
-
-Live mobile Lighthouse: Performance 100, Accessibility 100, Best Practices 100, SEO 100; FCP 0.9 s, LCP 1.2 s, TBT 50 ms, CLS 0. Security responses include an enforcing same-origin CSP, clickjacking protection, `nosniff`, strict-origin referrer policy, and a restrictive permissions policy.
-
-Screenshots:
-
-- `.factory/evidence/polish-3-live/home-390.png`
-- `.factory/evidence/polish-3-live/home-1440.png`
-- `.factory/evidence/polish-3-live/demo-390.png`
-- `.factory/evidence/polish-3-live/404-390.png`
+Load `dist/extension/chrome-mv3` as an unpacked Chromium extension, or serve `dist/site` for the product site and sample demo.
 
 ## Known gaps
 
-None. The product remains a WXT MV3 browser extension with a static landing/demo site and has no paid tier or external runtime service. Pre-existing `graphify-out/` workspace edits were preserved and were not included in the repair commits.
+No product defect remains in the reviewed scope. This static product has no backend, tenant data, paid offer, or runtime AI dependency. Browser sharing is shown only where the Web Share API exists; Copy summary remains available elsewhere.
+
+Pre-existing uncommitted `graphify-out/` changes were preserved and excluded from repair commits.
