@@ -1,4 +1,12 @@
-# Workspace Profiles — repair 2 handoff
+# Workspace Profiles — verification 3 handoff
+
+## Independent verification 3
+
+Verification 3 reviewed implementation `af023cc95101708cbf6b272523451c1bc86dd845` against documentation baseline `fa3d7e099beda92ccd60e7d680120bc3db97e74f`. Later commit `ca79e22e08b238ccbe51aa44f04c1734e6e98c90` changes only Graphify output.
+
+**Verdict: FAIL — 1 finding and 4 untested public claims.** The live behavior, all 20 declared claim commands, 5 unit tests, 13 site tests, 11 packaged-extension tests, clean build, live artifact comparison, accessibility checks, and Lighthouse checks pass. However, the installed popup's save/apply, extension backup export, successful backup import, and quantified 10-second delete undo are not completely covered by declared user-path claim tests. The live ZIP was also checked manually and those four behaviors work; the blocker is repeatable claim coverage.
+
+Full evidence and the required repair are in [`.factory/verification-3.md`](verification-3.md). Raw evidence is under `/work/.evidence/verification-3/`.
 
 ## Outcome
 
@@ -97,6 +105,8 @@ Load `dist/extension/chrome-mv3` as an unpacked Chromium extension, or serve `di
 
 ## Known gaps
 
-No product defect remains in the reviewed scope. This static product has no backend, tenant data, paid offer, or runtime AI dependency. Browser sharing is shown only where the Web Share API exists; Copy summary remains available elsewhere.
+Verification 3 found one blocking claims-coverage gap: four installed-popup actions need declared user-path tests. See `.factory/verification-3.md` for the exact surfaces and evidence. The live behaviors themselves passed direct checks.
+
+This static product has no backend, tenant data, paid offer, or runtime AI dependency. Browser sharing is shown only where the Web Share API exists; Copy summary remains available elsewhere.
 
 Pre-existing uncommitted `graphify-out/` changes were preserved and excluded from repair commits.
